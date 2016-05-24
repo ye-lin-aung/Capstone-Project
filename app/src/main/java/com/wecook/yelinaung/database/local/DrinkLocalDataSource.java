@@ -97,6 +97,10 @@ public class DrinkLocalDataSource implements DrinksDatasource {
     return drinks;
   }
 
+  @Override public List<DrinkDbModel> refreshCache() {
+    return getDrinks();
+  }
+
   @Override public void refreshDrinks() {
 
   }
@@ -114,7 +118,7 @@ public class DrinkLocalDataSource implements DrinksDatasource {
       contentValues.put(DrinksEntry.BOOKMARK, 0);
       if (context.getContentResolver()
           .update(DrinksEntry.DRINKS_URI, contentValues,
-              DrinksEntry.ID + " = '" + drinkDbModel.getId()+"'", null) <= 0) {
+              DrinksEntry.ID + " = '" + drinkDbModel.getId() + "'", null) <= 0) {
         context.getContentResolver().insert(DrinksContract.DrinksEntry.DRINKS_URI, contentValues);
       }
     }

@@ -49,6 +49,10 @@ public class DrinkRemoteDataSource implements DrinksDatasource {
     checkNotNull(context);
   }
 
+  @Override public List<DrinkDbModel> refreshCache() {
+    return null;
+  }
+
   public static DrinkRemoteDataSource getInstance(@NonNull Context context) {
     if (INSTANCE == null) {
       INSTANCE = new DrinkRemoteDataSource(context);

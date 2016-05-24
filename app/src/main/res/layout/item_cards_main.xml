@@ -1,42 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto">
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		>
 
 	<data>
 
 		<variable
 				name="drink"
 				type="com.wecook.yelinaung.database.DrinkDbModel"/>
+
 	</data>
 
 	<FrameLayout
+
 			android:orientation="vertical"
-			android:layout_width="300dp"
-			android:layout_height="300dp">
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
 
 
 		<android.support.v7.widget.CardView
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
 				app:cardPreventCornerOverlap="true"
-				app:cardUseCompatPadding="true">
+				app:cardUseCompatPadding="true"
+				>
 
-			<FrameLayout
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
+			<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="@dimen/item_card_width"
+					android:background="@color/colorPrimary"
+					android:layout_height="@dimen/item_card_heigh">
 
-				<com.google.android.youtube.player.YouTubeThumbnailView
+				<ImageView
 						android:id="@+id/thumbnail"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
+						android:layout_width="match_parent"
+						android:scaleType="fitXY"
+						android:layout_height="@dimen/drink_card_imageheigh"
 						app:imageUrl="@{drink.video}"/>
 
 				<TextView
+						android:textSize="@dimen/drink_card_textSize"
+						android:textColor="@android:color/white"
 						android:id="@+id/title"
-						android:text="@{drink.name}"
+						android:paddingRight="@dimen/drink_card_textMargin"
+						android:paddingLeft="@dimen/drink_card_textMargin"
+						android:paddingTop="@dimen/drink_card_textMarginTop"
+						android:minHeight="@dimen/item_card_text_minheight"
 						android:layout_width="match_parent"
-						android:layout_height="wrap_content"/>
-			</FrameLayout>
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:gravity="center"
+						app:font="@{`thin`}"
+						android:text="@{drink.name}"/>
+			</LinearLayout>
 		</android.support.v7.widget.CardView>
 	</FrameLayout>
 </layout>

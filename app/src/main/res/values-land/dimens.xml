@@ -3,18 +3,13 @@
 	<dimen name="activity_horizontal_margin">16dp</dimen>
 	<dimen name="activity_vertical_margin">16dp</dimen>
 	<dimen name="text_margin">16dp</dimen>
-	<integer name="recycler_item_count">2</integer>
+	<integer name="recycler_item_count">4</integer>
 	<dimen name="item_card_text_minheight">50dp</dimen>
-	<dimen name="item_card_width">165dp</dimen>
+	<dimen name="item_card_width">155dp</dimen>
 	<dimen name="item_card_heigh">200dp</dimen>
 	<dimen name="drink_card_textSize">18sp</dimen>
 	<dimen name="drink_card_imageheigh">130dp</dimen>
-	<dimen name="drink_card_MarginLeft">5dp</dimen>
 	<dimen name="drink_card_textMarginTop">8dp</dimen>
 	<dimen name="drink_card_textMargin">16dp</dimen>
-	<dimen name="drink_main_default_elevation">8dp</dimen>
-	<dimen name="drink_main_bannerSize">25dp</dimen>
-	<dimen name="drink_main_bannerPadding">3dp</dimen>
-	<dimen name="drink_main_appbarHeigh">118dp</dimen>
 
 </resources>

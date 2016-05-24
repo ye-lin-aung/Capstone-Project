@@ -1,6 +1,5 @@
 package com.wecook.yelinaung.youtube.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.google.common.base.Preconditions;
 import com.wecook.yelinaung.Injection;
 import com.wecook.yelinaung.R;
 import com.wecook.yelinaung.database.DrinkDbModel;
@@ -55,8 +53,8 @@ public class MainFragment extends Fragment implements MainContract.View {
 
   }
 
-  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
+  @Override public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
     adapter = new MainRecyclerAdapter(new ArrayList<DrinkDbModel>(0));
   }
 
@@ -69,7 +67,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     mPresenter = new MainPresenter(getLoaderManager(), repository, drinksLoader, this);
     int columCount = getContext().getResources().getInteger(R.integer.recycler_item_count);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), columCount);
-    recyclerView.setLayoutManager(Preconditions.checkNotNull(gridLayoutManager));
+    recyclerView.setLayoutManager(checkNotNull(gridLayoutManager));
     recyclerView.setHasFixedSize(true);
     recyclerView.setAdapter(adapter);
     return rootView;
@@ -77,11 +75,16 @@ public class MainFragment extends Fragment implements MainContract.View {
 
   @Override public void onStart() {
     super.onStart();
+  }
+
+  @Override public void onResume() {
+    super.onResume();
     mPresenter.start();
   }
 
-  @Override public void onAttach(Context context) {
-    super.onAttach(context);
+  @Override public void onDestroy() {
+    mPresenter = null;
+    super.onDestroy();
   }
 
   public interface OnFragmentInteractionListener {

@@ -7,12 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.google.android.youtube.player.YouTubeThumbnailView;
-import com.wecook.yelinaung.BuildConfig;
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.squareup.picasso.Picasso;
+import com.wecook.yelinaung.BR;
 import com.wecook.yelinaung.R;
+import com.wecook.yelinaung.YoutubeThumnail;
 import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.databinding.ItemCardsMainBinding;
-import com.wecook.yelinaung.listener.YoutubeThumnailListener;
+import com.wecook.yelinaung.font.CustomFont;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,21 +46,29 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     context = parent.getContext();
-    LayoutInflater inflater = LayoutInflater.from(context);
+    LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     ItemCardsMainBinding itemCardsMainBinding =
-        DataBindingUtil.inflate(inflater, R.layout.item_cards_main, parent, false);
+        ItemCardsMainBinding.inflate(inflater, parent, false);
     return new ViewHolder(itemCardsMainBinding.getRoot());
   }
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
-    holder.getDataBinding().setDrink(list.get(position));
+    final DrinkDbModel drinkDbModel = list.get(position);
+    holder.getDataBinding().setVariable(BR.drink, drinkDbModel);
     holder.getDataBinding().executePendingBindings();
   }
 
-  @BindingAdapter("app:imageUrl")
-  public static void loadThumbnil(YouTubeThumbnailView view, String video) {
-    YoutubeThumnailListener youtubeThumnailListener = new YoutubeThumnailListener(context, video);
-    view.initialize(BuildConfig.YT_KEY, youtubeThumnailListener);
+  @BindingAdapter("app:font") public static void loadFont(TextView textView, String fontName) {
+    textView.setTypeface(CustomFont.getInstance().getFont(fontName));
+  }
+
+  @BindingAdapter("app:imageUrl") public static void loadThumbnil(ImageView view, String video) {
+    YoutubeThumnail youtubeThumnail = new YoutubeThumnail(video);
+    Picasso.with(context)
+        .load(youtubeThumnail.getFullSize())
+        .placeholder(R.drawable.no_thumbnail)
+        .fit()
+        .into(view);
   }
 
   @Override public int getItemCount() {
@@ -77,5 +88,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     }
   }
 }
+
 
 

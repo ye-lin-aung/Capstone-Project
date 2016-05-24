@@ -1,7 +1,6 @@
 package com.wecook.yelinaung.listener;
 
 import android.content.Context;
-import android.view.ViewGroup;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
@@ -31,8 +30,7 @@ public class YoutubeThumnailListener implements YouTubeThumbnailView.OnInitializ
     youTubeThumbnailLoader.setVideo(video);
     youTubeThumbnailLoader.setOnThumbnailLoadedListener(this);
     ViewUtil viewUtil = new ViewUtil(context);
-    viewUtil.setViewParmas(youTubeThumbnailView, ViewGroup.LayoutParams.MATCH_PARENT,
-        viewUtil.dps2px(200));
+    viewUtil.setViewParmas(youTubeThumbnailView, viewUtil.dps2px(300), viewUtil.dps2px(200));
   }
 
   @Override public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {

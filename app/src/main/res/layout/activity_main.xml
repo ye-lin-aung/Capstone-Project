@@ -1,15 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:id="@+id/main_frame"
-		tools:context=".youtube.MainActivity">
+		>
+
+	<android.support.design.widget.AppBarLayout
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/drink_main_appbarHeigh"
+			android:elevation="@dimen/drink_main_default_elevation"
+			android:gravity="center"
+			android:background="?colorPrimary"
+			app:layout_scrollFlags="scroll|enterAlways"
+			>
+
+		<android.support.design.widget.CollapsingToolbarLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				app:layout_scrollFlags="scroll|exitUntilCollapsed"
+				>
+
+			<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="@dimen/drink_main_bannerSize"
+					android:padding="@dimen/drink_main_bannerPadding"
+					android:layout_gravity="center"
+					app:layout_collapseMode="parallax"
+					android:src="@drawable/we_drink"/>
+
+			<android.support.v7.widget.Toolbar
+					android:layout_width="wrap_content"
+					android:layout_height="?actionBarSize"
+					android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+					app:layout_collapseMode="pin"/>
+		</android.support.design.widget.CollapsingToolbarLayout>
+
+
+	</android.support.design.widget.AppBarLayout>
 
 	<fragment
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:tag="@string/main_fragment_tag"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior"
 			class="com.wecook.yelinaung.youtube.fragments.MainFragment"/>
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

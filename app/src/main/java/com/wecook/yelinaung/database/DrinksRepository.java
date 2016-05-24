@@ -66,6 +66,18 @@ public class DrinksRepository implements DrinksDatasource {
     mDrinkRemoteDataSource.deleteAllDrinks();
   }
 
+  @Override public List<DrinkDbModel> refreshCache() {
+    List<DrinkDbModel> drinkDbModels = null;
+    if (!mCachedIsDirty) {
+      drinkDbModels = getCached();
+      return drinkDbModels;
+    } else {
+      drinkDbModels = mDrinkLocalDataSource.getDrinks();
+    }
+    processLoadedDrinks(drinkDbModels);
+    return getCached();
+  }
+
   @Override public List<DrinkDbModel> getDrinks() {
 
     List<DrinkDbModel> drinkDbModels = null;

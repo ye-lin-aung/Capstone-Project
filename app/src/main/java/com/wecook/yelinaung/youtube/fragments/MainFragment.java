@@ -9,8 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.google.common.base.Preconditions;
 import com.wecook.yelinaung.Injection;
 import com.wecook.yelinaung.R;
 import com.wecook.yelinaung.database.DrinkDbModel;
@@ -26,7 +25,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by user on 5/10/16.
  */
 public class MainFragment extends Fragment implements MainContract.View {
-  @BindView(R.id.list) RecyclerView list;
+  //@BindView(R.id.recycler)
+  RecyclerView recyclerView;
   private MainContract.Presenter mPresenter;
   private DrinksRepository repository;
   private MainRecyclerAdapter adapter;
@@ -57,20 +57,21 @@ public class MainFragment extends Fragment implements MainContract.View {
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    int columCount = getContext().getResources().getInteger(R.integer.recycler_item_count);
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), columCount);
-    list.setLayoutManager(gridLayoutManager);
-    list.setHasFixedSize(true);
     adapter = new MainRecyclerAdapter(new ArrayList<DrinkDbModel>(0));
   }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.main_fragment, container, false);
-    repository = Injection.provideDrinkRepo(getContext());
+    recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler);
+    repository = Injection.provideDrinkRepo(getActivity().getApplicationContext());
     DrinksLoader drinksLoader = new DrinksLoader(getContext(), repository);
     mPresenter = new MainPresenter(getLoaderManager(), repository, drinksLoader, this);
-    ButterKnife.bind(this, rootView);
+    int columCount = getContext().getResources().getInteger(R.integer.recycler_item_count);
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), columCount);
+    recyclerView.setLayoutManager(Preconditions.checkNotNull(gridLayoutManager));
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setAdapter(adapter);
     return rootView;
   }
 

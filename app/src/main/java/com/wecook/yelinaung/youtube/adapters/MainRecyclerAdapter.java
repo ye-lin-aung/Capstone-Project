@@ -1,17 +1,17 @@
 package com.wecook.yelinaung.youtube.adapters;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 import com.wecook.yelinaung.BuildConfig;
 import com.wecook.yelinaung.R;
 import com.wecook.yelinaung.database.DrinkDbModel;
+import com.wecook.yelinaung.databinding.ItemCardsMainBinding;
 import com.wecook.yelinaung.listener.YoutubeThumnailListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +23,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
   private List<DrinkDbModel> list = new ArrayList<DrinkDbModel>();
 
-  private Context context;
+  private static Context context;
 
   public MainRecyclerAdapter(List<DrinkDbModel> list) {
-
     this.list = list;
     notifyDataSetChanged();
   }
@@ -44,15 +43,21 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     context = parent.getContext();
-    return new ViewHolder(
-        LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item, parent, false));
+    LayoutInflater inflater = LayoutInflater.from(context);
+    ItemCardsMainBinding itemCardsMainBinding =
+        DataBindingUtil.inflate(inflater, R.layout.item_cards_main, parent, false);
+    return new ViewHolder(itemCardsMainBinding.getRoot());
   }
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
-    YoutubeThumnailListener youtubeThumnailListener =
-        new YoutubeThumnailListener(context, list.get(position).getVideo());
-    holder.thumbnail.initialize(BuildConfig.YT_KEY, youtubeThumnailListener);
-    holder.title.setText(list.get(position).getName());
+    holder.getDataBinding().setDrink(list.get(position));
+    holder.getDataBinding().executePendingBindings();
+  }
+
+  @BindingAdapter("app:imageUrl")
+  public static void loadThumbnil(YouTubeThumbnailView view, String video) {
+    YoutubeThumnailListener youtubeThumnailListener = new YoutubeThumnailListener(context, video);
+    view.initialize(BuildConfig.YT_KEY, youtubeThumnailListener);
   }
 
   @Override public int getItemCount() {
@@ -60,12 +65,17 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.thumbnail) YouTubeThumbnailView thumbnail;
-    @BindView(R.id.title) TextView title;
+    private ItemCardsMainBinding dataBinding;
 
     public ViewHolder(View itemView) {
       super(itemView);
-      ButterKnife.bind(itemView);
+      dataBinding = DataBindingUtil.bind(itemView);
+    }
+
+    public ItemCardsMainBinding getDataBinding() {
+      return dataBinding;
     }
   }
 }
+
+

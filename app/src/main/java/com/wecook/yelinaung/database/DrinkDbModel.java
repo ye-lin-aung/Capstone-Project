@@ -7,12 +7,15 @@ import javax.annotation.Nullable;
  * Created by user on 5/21/16.
  */
 public class DrinkDbModel {
+
   private String id;
   @Nullable private String name;
   private int rating;
   private String color;
   private String video;
   private int bookmark;
+
+
   @Nullable private String description;
 
   public int getBookmark() {
@@ -33,6 +36,14 @@ public class DrinkDbModel {
 
   @Nullable public String getName() {
     return name;
+  }
+
+  public void setName(@Nullable String name) {
+    this.name = name;
+  }
+
+  public void setVideo(String video) {
+    this.video = video;
   }
 
   public int getRating() {

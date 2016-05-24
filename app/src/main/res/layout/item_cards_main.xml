@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
-		android:orientation="vertical"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto">
 
-	<android.support.v7.widget.CardView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			app:cardPreventCornerOverlap="true"
-			app:cardUseCompatPadding="true">
+	<data>
 
-		<FrameLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
+		<variable
+				name="drink"
+				type="com.wecook.yelinaung.database.DrinkDbModel"/>
+	</data>
 
-			<com.google.android.youtube.player.YouTubeThumbnailView
-					android:id="@+id/thumbnail"
+	<FrameLayout
+			android:orientation="vertical"
+			android:layout_width="300dp"
+			android:layout_height="300dp">
+
+
+		<android.support.v7.widget.CardView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				app:cardPreventCornerOverlap="true"
+				app:cardUseCompatPadding="true">
+
+			<FrameLayout
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"/>
+					android:layout_height="wrap_content">
 
-			<TextView
-					android:id="@+id/title"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"/>
-		</FrameLayout>
-	</android.support.v7.widget.CardView>
-</FrameLayout>
+				<com.google.android.youtube.player.YouTubeThumbnailView
+						android:id="@+id/thumbnail"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						app:imageUrl="@{drink.video}"/>
+
+				<TextView
+						android:id="@+id/title"
+						android:text="@{drink.name}"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+			</FrameLayout>
+		</android.support.v7.widget.CardView>
+	</FrameLayout>
+</layout>

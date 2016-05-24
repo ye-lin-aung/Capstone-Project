@@ -1,3 +1,4 @@
 <resources>
 	<string name="app_name">WeCook</string>
+	<integer name="recycler_item_count">2</integer>
 </resources>

@@ -4,13 +4,21 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.wecook.yelinaung.Injection;
 import com.wecook.yelinaung.R;
-import com.wecook.yelinaung.network.DrinksService;
-import javax.inject.Inject;
-import retrofit2.Retrofit;
+import com.wecook.yelinaung.database.DrinkDbModel;
+import com.wecook.yelinaung.database.DrinksRepository;
+import com.wecook.yelinaung.database.loaders.DrinksLoader;
+import com.wecook.yelinaung.youtube.adapters.MainRecyclerAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -18,14 +26,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by user on 5/10/16.
  */
 public class MainFragment extends Fragment implements MainContract.View {
-  @Inject Retrofit retrofit;
-  @Inject DrinksService drinksService;
-
-  private View mainView;
+  @BindView(R.id.list) RecyclerView list;
   private MainContract.Presenter mPresenter;
+  private DrinksRepository repository;
+  private MainRecyclerAdapter adapter;
 
-  public View getMainView() {
-    return mainView;
+  @Override public void showDrinks(List<DrinkDbModel> list) {
+    adapter.replaceList(list);
   }
 
   @Override public void setLoadingIndicator(boolean active) {
@@ -48,28 +55,28 @@ public class MainFragment extends Fragment implements MainContract.View {
 
   }
 
+  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    int columCount = getContext().getResources().getInteger(R.integer.recycler_item_count);
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), columCount);
+    list.setLayoutManager(gridLayoutManager);
+    list.setHasFixedSize(true);
+    adapter = new MainRecyclerAdapter(new ArrayList<DrinkDbModel>(0));
+  }
+
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    mainView = inflater.inflate(R.layout.main_fragment, container, false);
-
-    return mainView;
+    View rootView = inflater.inflate(R.layout.main_fragment, container, false);
+    repository = Injection.provideDrinkRepo(getContext());
+    DrinksLoader drinksLoader = new DrinksLoader(getContext(), repository);
+    mPresenter = new MainPresenter(getLoaderManager(), repository, drinksLoader, this);
+    ButterKnife.bind(this, rootView);
+    return rootView;
   }
 
   @Override public void onStart() {
     super.onStart();
-
-    //((MyApp) getActivity().getApplication()).getDrinksComponent().inject(this);
-    //Call<Drinks> drinksCall = drinksService.getDrinks(ApiKeyMap.getMap());
-    //
-    //drinksCall.enqueue(new Callback<Drinks>() {
-    //  @Override public void onResponse(Call<Drinks> call, Response<Drinks> response) {
-
-    //  }
-    //
-    //  @Override public void onFailure(Call<Drinks> call, Throwable t) {
-    //
-    //  }
-    //});
+    mPresenter.start();
   }
 
   @Override public void onAttach(Context context) {

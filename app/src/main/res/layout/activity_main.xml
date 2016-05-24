@@ -7,12 +7,9 @@
 		android:id="@+id/main_frame"
 		tools:context=".youtube.MainActivity">
 
-	<!--<fragment-->
-			<!--android:layout_width="match_parent"-->
-			<!--android:layout_height="match_parent"-->
-			<!--class="com.wecook.yelinaung.youtube.fragments.MainFragment"/>-->
-<Button android:onClick="add"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		/>
+	<fragment
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			class="com.wecook.yelinaung.youtube.fragments.MainFragment"/>
+
 </FrameLayout>

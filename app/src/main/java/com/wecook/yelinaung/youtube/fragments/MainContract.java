@@ -2,6 +2,8 @@ package com.wecook.yelinaung.youtube.fragments;
 
 import com.wecook.BasePresenter;
 import com.wecook.yelinaung.BaseView;
+import com.wecook.yelinaung.database.DrinkDbModel;
+import java.util.List;
 
 /**
  * Created by user on 5/22/16.
@@ -15,6 +17,8 @@ public interface MainContract {
     void setLoadingIndicator(boolean active);
 
     void showDrinkDetail();
+
+    void showDrinks(List<DrinkDbModel> list);
 
     void showError();
   }

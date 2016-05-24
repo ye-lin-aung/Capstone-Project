@@ -66,7 +66,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     YoutubeThumnail youtubeThumnail = new YoutubeThumnail(video);
     Picasso.with(context)
         .load(youtubeThumnail.getFullSize())
-        .placeholder(R.drawable.no_thumbnail)
+        .placeholder(R.drawable.loading)
+        .noFade()
         .fit()
         .into(view);
   }

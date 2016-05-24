@@ -1,6 +1,6 @@
 package com.wecook.yelinaung.component;
 
-import com.wecook.yelinaung.database.remote.DrinkRemoteDataSource;
+import com.wecook.yelinaung.database.remote.DrinksRemoteDataSource;
 import com.wecook.yelinaung.module.DrinksApiModule;
 import com.wecook.yelinaung.scope.UserScope;
 import dagger.Component;
@@ -10,7 +10,7 @@ import dagger.Component;
  */
 @UserScope @Component(modules = DrinksApiModule.class, dependencies = RetrofitComponent.class)
 public interface DrinksComponent {
-  void inject(DrinkRemoteDataSource drinkRemoteDataSource);
+  void inject(DrinksRemoteDataSource drinkRemoteDataSource);
 }
 
 

@@ -3,7 +3,7 @@ package com.wecook.yelinaung.database;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.wecook.yelinaung.database.local.DrinkLocalDataSource;
-import com.wecook.yelinaung.database.remote.DrinkRemoteDataSource;
+import com.wecook.yelinaung.database.remote.DrinksRemoteDataSource;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,13 +18,13 @@ public class DrinksRepository implements DrinksDatasource {
 
   private static DrinksRepository INSTANCE = null;
   private DrinkLocalDataSource mDrinkLocalDataSource;
-  private DrinkRemoteDataSource mDrinkRemoteDataSource;
+  private DrinksRemoteDataSource mDrinkRemoteDataSource;
   private List<DrinkRepoObserver> drinkOb = new ArrayList<DrinkRepoObserver>();
   Map<String, DrinkDbModel> mCachedTasks = null;
   boolean mCachedIsDirty;
 
   public static DrinksRepository getInstance(DrinkLocalDataSource drinkLocalDataSource,
-      DrinkRemoteDataSource drinkRemoteDataSource) {
+      DrinksRemoteDataSource drinkRemoteDataSource) {
     if (INSTANCE == null) {
       INSTANCE = new DrinksRepository(drinkLocalDataSource, drinkRemoteDataSource);
     }
@@ -32,7 +32,7 @@ public class DrinksRepository implements DrinksDatasource {
   }
 
   private DrinksRepository(@NonNull DrinkLocalDataSource tasksRemoteDataSource,
-      @NonNull DrinkRemoteDataSource tasksLocalDataSource) {
+      @NonNull DrinksRemoteDataSource tasksLocalDataSource) {
     mDrinkLocalDataSource = checkNotNull(tasksRemoteDataSource);
     mDrinkRemoteDataSource = checkNotNull(tasksLocalDataSource);
   }
@@ -64,18 +64,6 @@ public class DrinksRepository implements DrinksDatasource {
   @Override public void deleteAllDrinks() {
     mDrinkLocalDataSource.deleteAllDrinks();
     mDrinkRemoteDataSource.deleteAllDrinks();
-  }
-
-  @Override public List<DrinkDbModel> refreshCache() {
-    List<DrinkDbModel> drinkDbModels = null;
-    if (!mCachedIsDirty) {
-      drinkDbModels = getCached();
-      return drinkDbModels;
-    } else {
-      drinkDbModels = mDrinkLocalDataSource.getDrinks();
-    }
-    processLoadedDrinks(drinkDbModels);
-    return getCached();
   }
 
   @Override public List<DrinkDbModel> getDrinks() {

@@ -27,7 +27,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Created by user on 5/21/16.
  */
-public class DrinkRemoteDataSource implements DrinksDatasource {
+public class DrinksRemoteDataSource implements DrinksDatasource {
   @Inject DrinksService service;
 
   private static Map<String, DrinkDbModel> drinksServiceData = new LinkedHashMap<>();
@@ -40,22 +40,18 @@ public class DrinkRemoteDataSource implements DrinksDatasource {
       DrinksContract.DrinksEntry.DESCRIPTION
   };
 
-  private static DrinkRemoteDataSource INSTANCE;
+  private static DrinksRemoteDataSource INSTANCE;
   private Context context;
   private static final List<DrinkDbModel> drinkList = new ArrayList<>();
 
-  private DrinkRemoteDataSource(@NonNull Context context) {
+  private DrinksRemoteDataSource(@NonNull Context context) {
     this.context = context;
     checkNotNull(context);
   }
 
-  @Override public List<DrinkDbModel> refreshCache() {
-    return null;
-  }
-
-  public static DrinkRemoteDataSource getInstance(@NonNull Context context) {
+  public static DrinksRemoteDataSource getInstance(@NonNull Context context) {
     if (INSTANCE == null) {
-      INSTANCE = new DrinkRemoteDataSource(context);
+      INSTANCE = new DrinksRemoteDataSource(context);
     }
     return INSTANCE;
   }

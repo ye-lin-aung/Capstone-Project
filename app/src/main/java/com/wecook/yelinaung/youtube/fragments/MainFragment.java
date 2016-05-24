@@ -3,6 +3,7 @@ package com.wecook.yelinaung.youtube.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,9 +23,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Created by user on 5/10/16.
  */
-public class MainFragment extends Fragment implements MainContract.View {
+public class MainFragment extends Fragment
+    implements MainContract.View, SwipeRefreshLayout.OnRefreshListener {
   //@BindView(R.id.recycler)
   RecyclerView recyclerView;
+  SwipeRefreshLayout swipeRefreshLayout;
   private MainContract.Presenter mPresenter;
   private DrinksRepository repository;
   private MainRecyclerAdapter adapter;
@@ -34,7 +37,9 @@ public class MainFragment extends Fragment implements MainContract.View {
   }
 
   @Override public void setLoadingIndicator(boolean active) {
-
+    if (swipeRefreshLayout.isRefreshing() != active) {
+      swipeRefreshLayout.setRefreshing(active);
+    }
   }
 
   @Override public void setPresenter(MainContract.Presenter presenter) {
@@ -58,10 +63,16 @@ public class MainFragment extends Fragment implements MainContract.View {
     adapter = new MainRecyclerAdapter(new ArrayList<DrinkDbModel>(0));
   }
 
+  @Override public void onRefresh() {
+    mPresenter.loadDrinks(true);
+  }
+
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.main_fragment, container, false);
     recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler);
+    swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.main_swipe);
+    swipeRefreshLayout.setOnRefreshListener(this);
     repository = Injection.provideDrinkRepo(getActivity().getApplicationContext());
     DrinksLoader drinksLoader = new DrinksLoader(getContext(), repository);
     mPresenter = new MainPresenter(getLoaderManager(), repository, drinksLoader, this);

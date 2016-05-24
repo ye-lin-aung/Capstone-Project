@@ -28,13 +28,13 @@
 			<LinearLayout
 					android:orientation="vertical"
 					android:layout_width="@dimen/item_card_width"
-					android:background="@color/colorPrimary"
+
 					android:layout_height="@dimen/item_card_heigh">
 
 				<ImageView
 						android:id="@+id/thumbnail"
-						android:layout_width="match_parent"
-						android:scaleType="fitXY"
+						android:layout_width="@dimen/item_card_width"
+						android:scaleType="center"
 						android:layout_height="@dimen/drink_card_imageheigh"
 						app:imageUrl="@{drink.video}"/>
 
@@ -47,10 +47,11 @@
 						android:paddingTop="@dimen/drink_card_textMarginTop"
 						android:minHeight="@dimen/item_card_text_minheight"
 						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
+						android:layout_height="match_parent"
 						android:layout_gravity="center"
 						android:gravity="center"
 						app:font="@{`thin`}"
+						android:background="@color/colorPrimary"
 						android:text="@{drink.name}"/>
 			</LinearLayout>
 		</android.support.v7.widget.CardView>

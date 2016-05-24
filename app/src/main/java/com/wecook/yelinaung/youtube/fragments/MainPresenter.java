@@ -29,11 +29,13 @@ public class MainPresenter
   }
 
   @Override public Loader onCreateLoader(int id, Bundle args) {
+    mainView.setLoadingIndicator(true);
     return drinksLoader;
   }
 
   @Override public void onLoadFinished(Loader<List<DrinkDbModel>> loader, List<DrinkDbModel> data) {
     mainView.showDrinks(data);
+    mainView.setLoadingIndicator(false);
   }
 
   @Override public void onLoaderReset(Loader loader) {
@@ -41,7 +43,11 @@ public class MainPresenter
   }
 
   @Override public void loadDrinks(boolean force) {
-
+    mainView.setLoadingIndicator(true);
+    if (force) {
+      mainView.showDrinks(drinksRepository.getCached());
+    }
+    mainView.setLoadingIndicator(false);
   }
 
   @Override public void start() {

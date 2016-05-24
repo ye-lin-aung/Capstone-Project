@@ -97,9 +97,7 @@ public class DrinkLocalDataSource implements DrinksDatasource {
     return drinks;
   }
 
-  @Override public List<DrinkDbModel> refreshCache() {
-    return getDrinks();
-  }
+
 
   @Override public void refreshDrinks() {
 

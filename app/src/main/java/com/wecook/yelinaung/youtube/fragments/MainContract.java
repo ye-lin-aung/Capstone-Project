@@ -14,6 +14,10 @@ public interface MainContract {
 
     void showNoDrinks();
 
+
+
+
+
     void setLoadingIndicator(boolean active);
 
     void showDrinkDetail();

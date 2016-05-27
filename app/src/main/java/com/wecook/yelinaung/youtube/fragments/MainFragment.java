@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import com.wecook.yelinaung.youtube.adapters.MainRecyclerAdapter;
 import com.wecook.yelinaung.youtube.scroll.EndlessRecyclerViewScrollListener;
 import java.util.ArrayList;
 import java.util.List;
+import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -51,7 +54,6 @@ public class MainFragment extends Fragment
     linearLayout.setVisibility(View.GONE);
     title.setVisibility(View.GONE);
     adapter.noAnimationAddList(list);
-
   }
 
   @Override public void setLoadingIndicator(boolean active) {
@@ -111,6 +113,7 @@ public class MainFragment extends Fragment
     recyclerView = mainFragmentBinding.recycler;
 
     recyclerView.setItemAnimator(new DefaultItemAnimator());
+
     int columCount = getContext().getResources().getInteger(R.integer.recycler_item_count);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), columCount);
     recyclerView.setLayoutManager(checkNotNull(gridLayoutManager));
@@ -121,9 +124,13 @@ public class MainFragment extends Fragment
         mPresenter.paginateDrinks();
       }
     });
-    recyclerView.setHasFixedSize(true);
-    recyclerView.setAdapter(adapter);
     adapter.setItemEvent(this);
+    AnimationAdapter adapter2 = new SlideInBottomAnimationAdapter(adapter);
+    adapter2.setFirstOnly(true);
+    adapter2.setDuration(700);
+    adapter2.setInterpolator(new AccelerateDecelerateInterpolator());
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setAdapter(adapter2);
   }
 
   private void showMessage(String message) {

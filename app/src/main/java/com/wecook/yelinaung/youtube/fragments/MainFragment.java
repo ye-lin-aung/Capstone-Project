@@ -127,7 +127,7 @@ public class MainFragment extends Fragment
     adapter.setItemEvent(this);
     AnimationAdapter adapter2 = new SlideInBottomAnimationAdapter(adapter);
     adapter2.setFirstOnly(true);
-    adapter2.setDuration(700);
+    adapter2.setDuration(500);
     adapter2.setInterpolator(new AccelerateDecelerateInterpolator());
     recyclerView.setHasFixedSize(true);
     recyclerView.setAdapter(adapter2);

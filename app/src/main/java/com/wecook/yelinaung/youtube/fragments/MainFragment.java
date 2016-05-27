@@ -14,7 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -128,7 +128,7 @@ public class MainFragment extends Fragment
     AnimationAdapter adapter2 = new SlideInBottomAnimationAdapter(adapter);
     adapter2.setFirstOnly(true);
     adapter2.setDuration(500);
-    adapter2.setInterpolator(new AccelerateDecelerateInterpolator());
+    adapter2.setInterpolator(new OvershootInterpolator(0.5f));
     recyclerView.setHasFixedSize(true);
     recyclerView.setAdapter(adapter2);
   }

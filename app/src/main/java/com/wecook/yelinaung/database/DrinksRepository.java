@@ -118,7 +118,6 @@ public class DrinksRepository implements DrinksDatasource {
   }
 
   @Nullable @Override public DrinkDbModel getDrink(@NonNull String drinkId) {
-
     DrinkDbModel drinkDbModel = getDrinkWithId(drinkId);
     if (drinkDbModel != null) {
       return drinkDbModel;
@@ -141,7 +140,6 @@ public class DrinksRepository implements DrinksDatasource {
 
   //This was never called
   @Override public void saveDrinks(@NonNull DrinkDbModel drinkDbModel) {
-
     checkNotNull(drinkDbModel);
     mDrinkRemoteDataSource.saveDrinks(drinkDbModel);
     mDrinkLocalDataSource.saveDrinks(drinkDbModel);

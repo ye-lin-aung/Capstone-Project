@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Progress Layout contains Progress Bar and a TextView -->
+<layout>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			android:layout_width="@dimen/item_card_width"
+			android:orientation="vertical"
+			android:layout_height="@dimen/item_card_heigh"
+			android:gravity="center"
+			android:padding="5dp">
+
+		<FrameLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+
+			<me.zhanghai.android.materialprogressbar.MaterialProgressBar
+					android:id="@+id/more_progress"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:indeterminate="true"
+
+					style="@style/Widget.MaterialProgressBar.ProgressBar.Large.NoPadding"/>
+
+			<ImageView
+
+					android:id="@+id/error_cloud"
+					android:background="@drawable/offline_cloud"
+					android:textColor="@color/blue_light"
+					android:layout_width="@dimen/cloud_recycler_imagewidth"
+					android:layout_height="@dimen/cloud_recycler_imageheigh">
+
+			</ImageView>
+		</FrameLayout>
+
+		<TextView
+				android:id="@+id/progress_text"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:gravity="center"
+				android:padding="5dp"
+				android:text="@string/load_more"
+				android:textColor="@color/colorPrimary"
+				app:font="@{`thin`}"
+				android:textSize="@dimen/drink_card_textSize"/>
+
+	</LinearLayout>
+</layout>

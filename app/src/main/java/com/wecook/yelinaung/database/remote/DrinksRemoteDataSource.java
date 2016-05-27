@@ -92,21 +92,30 @@ public class DrinksRemoteDataSource implements DrinksDatasource {
     } else {
       pageCount = 0;
     }
+
+    keyPage.put("start", Integer.toString(pageCount));
+    Call<Drinks> call = service.getDrinks(keyPage);
     try {
 
-      keyPage.put("start", Integer.toString(pageCount));
-      Call<Drinks> call = service.getDrinks(keyPage);
-      Drinks drinks = call.execute().body();
-
-      List<Result> list = drinks.getResult();
+      List<Result> list = call.execute().body().getResult();
+      //call.enqueue(new Callback<Drinks>() {
+      //               @Override public void onResponse(Call<Drinks> call, Response<Drinks> response) {
+      //                 List<Result> list = response.body().getResult();
       for (int i = 0; i < list.size(); i++) {
         DrinkDbModel drinkDbModel = TransformModels(list.get(i));
         drinkList.add(drinkDbModel);
       }
+      //               }
+      //
+      //               @Override public void onFailure(Call<Drinks> call, Throwable t) {
+      //
+      //               }
+      //             }
+      //
+      //);
     } catch (IOException ioe) {
 
     }
-
     return drinkList;
   }
 

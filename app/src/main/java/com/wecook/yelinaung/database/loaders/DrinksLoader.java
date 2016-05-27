@@ -28,8 +28,6 @@ public class DrinksLoader extends AsyncTaskLoader<List<DrinkDbModel>>
     }
   }
 
-
-
   @Override protected void onStartLoading() {
     if (drinksRepository.cachedTasksAvailable()) {
       deliverResult(drinksRepository.getCached());

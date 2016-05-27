@@ -14,9 +14,7 @@ public interface MainContract {
 
     void showNoDrinks();
 
-
-
-
+    void showNoDrinksView();
 
     void setLoadingIndicator(boolean active);
 
@@ -31,6 +29,8 @@ public interface MainContract {
     @Override void start();
 
     void loadDrinks(boolean force);
+
+    void paginateDrinks();
 
     void result(int resultCode, int requestCode);
   }

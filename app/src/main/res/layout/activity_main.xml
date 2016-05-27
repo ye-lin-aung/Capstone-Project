@@ -41,6 +41,7 @@
 
 	<fragment
 			android:layout_marginLeft="@dimen/drink_card_MarginLeft"
+			android:layout_marginRight="@dimen/drink_card_MarginRight"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:tag="@string/main_fragment_tag"

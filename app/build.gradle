@@ -46,6 +46,7 @@ android {
     targetSdkVersion rootProject.ext.targetSDK
     versionCode 1
     versionName "1.0"
+
     vectorDrawables.useSupportLibrary = true
     buildConfigField 'String', "API_KEY", "\"${apiKey}\""
     buildConfigField 'String', "API_SECRET", "\"${apiSecret}\""
@@ -92,7 +93,6 @@ dependencies {
   apt "com.google.dagger:dagger-compiler:$rootProject.dagger"
   compile "com.google.dagger:dagger:$rootProject.dagger"
   provided "javax.annotation:jsr250-api:$rootProject.javax"
-
   compile "com.google.guava:guava:$rootProject.guava"
 
   //Support lib
@@ -114,7 +114,8 @@ dependencies {
   compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofit2"
   compile "com.google.code.gson:gson:$rootProject.gson"
 
-
+  compile "me.zhanghai.android.materialprogressbar:library:${rootProject.progressbar}"
+  compile "jp.wasabeef:recyclerview-animators:${rootProject.recycler_animators}"
   //Utils
   compile "com.squareup.picasso:picasso:$rootProject.picasso"
   compile "com.squareup:otto:$rootProject.otto"

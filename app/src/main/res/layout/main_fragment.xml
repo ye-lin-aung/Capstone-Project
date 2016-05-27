@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<android.support.v4.widget.SwipeRefreshLayout
+	<FrameLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:id="@+id/main_swipe">
+			android:layout_height="match_parent">
 
-		<android.support.v7.widget.RecyclerView
-				android:id="@+id/recycler"
-				android:layout_marginStart="@dimen/drink_card_MarginLeft"
-				android:layout_marginLeft="@dimen/drink_card_MarginLeft"
-
+		<android.support.v4.widget.SwipeRefreshLayout
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"/>
-	</android.support.v4.widget.SwipeRefreshLayout>
+				android:layout_height="match_parent"
+				android:id="@+id/main_swipe">
 
-</FrameLayout>
+			<android.support.v7.widget.RecyclerView
+					android:id="@+id/recycler"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"/>
+		</android.support.v4.widget.SwipeRefreshLayout>
+
+		<LinearLayout
+				android:id="@+id/error_container"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:orientation="vertical"
+				android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+			<ImageView
+
+					android:id="@+id/error_cloud"
+					android:background="@drawable/offline_cloud"
+					android:textColor="@color/blue_light"
+					android:layout_width="@dimen/cloud_imagewidth"
+					android:layout_height="@dimen/cloud_imageheigh">
+
+			</ImageView>
+
+			<TextView
+					android:id="@+id/title"
+					android:text="@string/no_data"
+					android:gravity="center"
+					android:textColor="@color/colorPrimary"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+		</LinearLayout>
+	</FrameLayout>
+</layout>

@@ -17,10 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
   }
 
   @Provides @Singleton Retrofit provideRetrofit() {
-
     return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
         .baseUrl(baseUrl)
         .build();
-
   }
 }

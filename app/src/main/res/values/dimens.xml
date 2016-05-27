@@ -9,12 +9,18 @@
 	<dimen name="item_card_heigh">200dp</dimen>
 	<dimen name="drink_card_textSize">18sp</dimen>
 	<dimen name="drink_card_imageheigh">130dp</dimen>
-	<dimen name="drink_card_MarginLeft">5dp</dimen>
+	<dimen name="cloud_imageheigh">90dp</dimen>
+	<dimen name="cloud_imagewidth">150dp</dimen>
+	<dimen name="cloud_recycler_imageheigh">60dp</dimen>
+	<dimen name="cloud_recycler_imagewidth">100dp</dimen>
+	<dimen name="drink_card_MarginLeft">8dp</dimen>
+	<dimen name="drink_card_MarginRight">5dp</dimen>
 	<dimen name="drink_card_textMarginTop">8dp</dimen>
 	<dimen name="drink_card_textMargin">16dp</dimen>
 	<dimen name="drink_main_default_elevation">8dp</dimen>
 	<dimen name="drink_main_bannerSize">25dp</dimen>
 	<dimen name="drink_main_bannerPadding">3dp</dimen>
 	<dimen name="drink_main_appbarHeigh">118dp</dimen>
+	<dimen name="error_cloud_elevation">8dp</dimen>
 
 </resources>

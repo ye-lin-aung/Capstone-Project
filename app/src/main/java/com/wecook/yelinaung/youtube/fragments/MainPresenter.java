@@ -34,20 +34,34 @@ public class MainPresenter
   }
 
   @Override public void onLoadFinished(Loader<List<DrinkDbModel>> loader, List<DrinkDbModel> data) {
-    mainView.showDrinks(data);
-    mainView.setLoadingIndicator(false);
+    if (data.size() > 0) {
+      mainView.setLoadingIndicator(false);
+      mainView.showDrinks(data);
+    } else {
+      mainView.setLoadingIndicator(false);
+      mainView.showNoDrinksView();
+    }
   }
 
   @Override public void onLoaderReset(Loader loader) {
 
   }
 
+  @Override public void paginateDrinks() {
+    drinksRepository.refreshDrinks();
+  }
+
   @Override public void loadDrinks(boolean force) {
-    mainView.setLoadingIndicator(true);
     if (force) {
-      mainView.showDrinks(drinksRepository.getCached());
+      mainView.setLoadingIndicator(true);
+      List<DrinkDbModel> list = drinksRepository.getCached();
+      if (list == null || list.isEmpty()) {
+        drinksRepository.refreshDrinks();
+      } else {
+        mainView.setLoadingIndicator(false);
+        mainView.showDrinks(list);
+      }
     }
-    mainView.setLoadingIndicator(false);
   }
 
   @Override public void start() {

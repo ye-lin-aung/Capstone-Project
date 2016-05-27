@@ -111,10 +111,10 @@ public class MainFragment extends Fragment
     recyclerView = mainFragmentBinding.recycler;
 
     recyclerView.setItemAnimator(new FadeInUpAnimator(new AccelerateDecelerateInterpolator()));
-    recyclerView.getItemAnimator().setAddDuration(1300);
-    recyclerView.getItemAnimator().setRemoveDuration(1300);
-    recyclerView.getItemAnimator().setMoveDuration(1300);
-    recyclerView.getItemAnimator().setChangeDuration(1300);
+    recyclerView.getItemAnimator().setAddDuration(1000);
+    recyclerView.getItemAnimator().setRemoveDuration(1000);
+    recyclerView.getItemAnimator().setMoveDuration(1000);
+    recyclerView.getItemAnimator().setChangeDuration(1000);
     int columCount = getContext().getResources().getInteger(R.integer.recycler_item_count);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), columCount);
     recyclerView.setLayoutManager(checkNotNull(gridLayoutManager));

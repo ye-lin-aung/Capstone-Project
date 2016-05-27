@@ -4,8 +4,6 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Vibrator;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.widget.RecyclerView;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -26,7 +24,6 @@ import com.wecook.yelinaung.font.CustomFont;
 import com.wecook.yelinaung.util.InternetUtil;
 import java.util.ArrayList;
 import java.util.List;
-import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 
 /**
  * Created by user on 5/12/16.
@@ -52,8 +49,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   }
 
   public void noAnimationAddList(List<DrinkDbModel> list) {
-    this.list = list;
-    notifyDataSetChanged();
+    if (this.list.size() <= 0) {
+      this.list = list;
+
+      notifyItemRangeInserted(this.list.size(), list.size());
+    } else {
+      this.list = list;
+      notifyDataSetChanged();
+    }
   }
 
   public void replaceList(List<DrinkDbModel> list) {
@@ -161,32 +164,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
   }
 
-  public class ItemViewHolder extends AnimateViewHolder
+  public class ItemViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener, View.OnLongClickListener {
     private ItemCardsMainBinding dataBinding;
-
-    @Override public void animateRemoveImpl(ViewPropertyAnimatorListener listener) {
-      ViewCompat.animate(itemView)
-          .translationY(-itemView.getHeight() * 0.3f)
-          .alpha(0)
-          .setDuration(300)
-          .setListener(listener)
-          .start();
-    }
-
-    @Override public void preAnimateAddImpl() {
-      ViewCompat.setTranslationY(itemView, -itemView.getHeight() * 0.3f);
-      ViewCompat.setAlpha(itemView, 0);
-    }
-
-    @Override public void animateAddImpl(ViewPropertyAnimatorListener listener) {
-      ViewCompat.animate(itemView)
-          .translationY(0)
-          .alpha(1)
-          .setDuration(300)
-          .setListener(listener)
-          .start();
-    }
 
     public ItemViewHolder(View itemView) {
       super(itemView);

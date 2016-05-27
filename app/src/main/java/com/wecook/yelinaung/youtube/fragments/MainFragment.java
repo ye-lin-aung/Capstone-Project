@@ -8,12 +8,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +28,6 @@ import com.wecook.yelinaung.youtube.adapters.MainRecyclerAdapter;
 import com.wecook.yelinaung.youtube.scroll.EndlessRecyclerViewScrollListener;
 import java.util.ArrayList;
 import java.util.List;
-import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -51,7 +50,8 @@ public class MainFragment extends Fragment
     recyclerView.setVisibility(View.VISIBLE);
     linearLayout.setVisibility(View.GONE);
     title.setVisibility(View.GONE);
-    adapter.replaceList(list);
+    adapter.noAnimationAddList(list);
+
   }
 
   @Override public void setLoadingIndicator(boolean active) {
@@ -110,11 +110,7 @@ public class MainFragment extends Fragment
   public void prepareRecycler(View rootView) {
     recyclerView = mainFragmentBinding.recycler;
 
-    recyclerView.setItemAnimator(new FadeInUpAnimator(new AccelerateDecelerateInterpolator()));
-    recyclerView.getItemAnimator().setAddDuration(1000);
-    recyclerView.getItemAnimator().setRemoveDuration(1000);
-    recyclerView.getItemAnimator().setMoveDuration(1000);
-    recyclerView.getItemAnimator().setChangeDuration(1000);
+    recyclerView.setItemAnimator(new DefaultItemAnimator());
     int columCount = getContext().getResources().getInteger(R.integer.recycler_item_count);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), columCount);
     recyclerView.setLayoutManager(checkNotNull(gridLayoutManager));

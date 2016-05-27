@@ -5,6 +5,7 @@ import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Vibrator;
 import android.support.v7.widget.RecyclerView;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,19 +39,25 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   public MainRecyclerAdapter(List<DrinkDbModel> list) {
     this.list = list;
-    notifyItemInserted(list.size() - 1);
+    notifyDataSetChanged();
   }
 
   public void appendItems(DrinkDbModel object) {
     int positions = list.size();
     list.add(object);
-    notifyItemInserted(positions);
+    notifyItemInserted(positions - 1);
+  }
+
+  public void noAnimationAddList(List<DrinkDbModel> list) {
+    this.list = list;
+    notifyDataSetChanged();
   }
 
   public void replaceList(List<DrinkDbModel> list) {
-    int initPosition = this.list.size();
-    this.list = list;
-    notifyItemRangeChanged(initPosition, list.size()-1);
+    int initPosition;
+
+    initPosition = getItemCount(); this.list = list;
+    notifyItemRangeInserted(initPosition, list.size());
   }
 
   @Override public int getItemViewType(int position) {
@@ -89,7 +96,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
               Animation animation = AnimationUtils.loadAnimation(context, R.anim.like);
               animation.setAnimationListener(new Animation.AnimationListener() {
                 @Override public void onAnimationStart(Animation animation) {
-                  vibe.vibrate(150);
+                  view.setHapticFeedbackEnabled(true);
+                  view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
                 }
 
                 @Override public void onAnimationEnd(Animation animation) {

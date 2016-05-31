@@ -154,6 +154,14 @@ public class DrinksRepository implements DrinksDatasource {
     notifyObservers();
   }
 
+  @Override public void saveBookmark(@NonNull DrinkDbModel drinkDbModel) {
+    mDrinkLocalDataSource.saveBookmark(drinkDbModel);
+    if (mCachedTasks == null) {
+      mCachedTasks = new LinkedHashMap<>();
+    }
+    mCachedTasks.put(drinkDbModel.getId(), drinkDbModel);
+  }
+
   public boolean cachedTasksAvailable() {
     return mCachedTasks != null && !mCachedIsDirty;
   }
@@ -169,11 +177,14 @@ public class DrinksRepository implements DrinksDatasource {
 
     mCachedTasks.remove(drinkId);
 
-    // Update the UIx
     notifyObservers();
   }
 
   public interface DrinkRepoObserver {
     void OnDrinksChanged();
+  }
+
+  public interface BookmarkObserver {
+    void OnBookmarkChannged();
   }
 }

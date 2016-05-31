@@ -2,11 +2,13 @@
 <resources>
 	<color name="colorPrimary">#373D5A</color>
 	<color name="text_white">#EEEEEE</color>
+	<color name="text_gray">#919191</color>
 	<color name="like_gray">#FFFFFF</color>
 	<color name="secondaryColor">#6f8391d4</color>
 	<color name="colorPrimaryDark">#2b324e</color>
 	<color name="colorAccent">#FFB933</color>
 	<color name="color_red">#F44336</color>
 	<color name="blue_light">#2196F3</color>
+	<color name="before_like">#cfcfcf</color>
 
 </resources>

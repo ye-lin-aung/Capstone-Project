@@ -5,4 +5,6 @@
 	<string name="no_data">Please Connect Network \n To Load Data</string>
 	<string name="load_more">Loading...</string>
 	<string name="cant_connect">Cant connect to \n Server</string>
+	<string name="like">like</string>
+	<string name="liked">liked</string>
 </resources>

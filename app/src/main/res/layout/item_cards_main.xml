@@ -25,52 +25,90 @@
 				app:cardUseCompatPadding="true"
 				>
 
-			<FrameLayout
-					android:layout_width="match_parent"
-					android:layout_height="match_parent">
+			<LinearLayout
+					android:layout_width="@dimen/item_card_width"
+					android:layout_height="@dimen/item_card_heigh"
+					android:orientation="vertical">
+
+				<FrameLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content">
 
 
-				<LinearLayout
-						android:orientation="vertical"
-						android:layout_width="@dimen/item_card_width"
-						android:layout_height="@dimen/item_card_heigh">
+					<LinearLayout
+							android:orientation="vertical"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content">
 
+
+						<ImageView
+								android:id="@+id/thumbnail"
+								android:layout_width="@dimen/item_card_width"
+								android:scaleType="center"
+								android:background="@color/secondaryColor"
+								android:src="@drawable/cocktail"
+								android:layout_height="@dimen/drink_card_imageheigh"
+								app:imageUrl="@{drink.video}"/>
+
+						<TextView
+								android:textSize="@dimen/drink_card_textSize"
+								android:textColor="@color/colorPrimary"
+								android:id="@+id/title"
+								android:paddingRight="@dimen/drink_card_textMargin"
+								android:paddingLeft="@dimen/drink_card_textMargin"
+								android:minHeight="@dimen/item_card_text_minheight"
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"
+								android:layout_gravity="center"
+								android:gravity="center"
+								app:font="@{`thin`}"
+								android:text="@{drink.name}"/>
+
+					</LinearLayout>
 
 					<ImageView
-							android:id="@+id/thumbnail"
-							android:layout_width="@dimen/item_card_width"
-							android:scaleType="center"
-							android:background="@color/secondaryColor"
-							android:src="@drawable/cocktail"
-							android:layout_height="@dimen/drink_card_imageheigh"
-							app:imageUrl="@{drink.video}"/>
+							android:visibility="gone"
+							android:id="@+id/like"
+							android:layout_gravity="center"
+							android:layout_width="36dp"
+							android:layout_height="36dp"
+							app:srcCompat="@drawable/ic_thumb_up_black_24dp"
+							android:tint="@color/like_gray"/>
+				</FrameLayout>
+
+				<View
+						android:layout_width="@dimen/view_seperator_width"
+						android:layout_height="@dimen/view_seperator_heigh"
+						android:layout_gravity="center"
+						android:background="@color/secondaryColor"/>
+
+				<LinearLayout
+						android:id="@+id/small_like_container"
+						android:layout_marginTop="@dimen/drink_card_bookmarkMargin"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal"
+						android:gravity="center">
+
+					<ImageView
+							android:id="@+id/small_like"
+							android:layout_width="@dimen/bookmark_btn_small"
+							android:layout_height="@dimen/bookmark_btn_small"
+							app:srcCompat="@drawable/ic_thumb_up_black_24dp"
+							android:tint="@color/before_like"
+							android:layout_marginRight="@dimen/drink_card_bookmarkMargin"
+							/>
 
 					<TextView
-							android:textSize="@dimen/drink_card_textSize"
-							android:textColor="@color/text_white"
-							android:id="@+id/title"
-							android:paddingRight="@dimen/drink_card_textMargin"
-							android:paddingLeft="@dimen/drink_card_textMargin"
-							android:minHeight="@dimen/item_card_text_minheight"
-							android:layout_width="match_parent"
-							android:layout_height="match_parent"
-							android:layout_gravity="center"
-							android:gravity="center"
-							app:font="@{`thin`}"
-							android:background="@color/colorPrimary"
-							android:text="@{drink.name}"/>
-
+							android:id="@+id/small_like_text"
+							android:text="@string/like"
+							app:font="@{`medium`}"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/text_gray"
+							/>
 				</LinearLayout>
-
-				<ImageView
-						android:visibility="gone"
-						android:id="@+id/like"
-						android:layout_gravity="center"
-						android:layout_width="36dp"
-						android:layout_height="36dp"
-						app:srcCompat="@drawable/ic_thumb_up_black_24dp"
-						android:tint="@color/like_gray"/>
-			</FrameLayout>
+			</LinearLayout>
 		</android.support.v7.widget.CardView>
 	</FrameLayout>
 </layout>

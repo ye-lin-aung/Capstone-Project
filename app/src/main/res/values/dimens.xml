@@ -6,8 +6,11 @@
 	<integer name="recycler_item_count">2</integer>
 	<dimen name="item_card_text_minheight">50dp</dimen>
 	<dimen name="item_card_width">165dp</dimen>
-	<dimen name="item_card_heigh">200dp</dimen>
-	<dimen name="drink_card_textSize">18sp</dimen>
+	<dimen name="item_card_heigh">220dp</dimen>
+	<dimen name="bookmark_btn_small">24dp</dimen>
+	<dimen name="view_seperator_heigh">1dp</dimen>
+	<dimen name="view_seperator_width">125dp</dimen>
+	<dimen name="drink_card_textSize">15sp</dimen>
 	<dimen name="drink_card_imageheigh">130dp</dimen>
 	<dimen name="cloud_imageheigh">90dp</dimen>
 	<dimen name="cloud_imagewidth">150dp</dimen>
@@ -16,6 +19,7 @@
 	<dimen name="drink_card_MarginLeft">8dp</dimen>
 	<dimen name="drink_card_MarginRight">5dp</dimen>
 	<dimen name="drink_card_textMarginTop">8dp</dimen>
+	<dimen name="drink_card_bookmarkMargin">6dp</dimen>
 	<dimen name="drink_card_textMargin">16dp</dimen>
 	<dimen name="drink_main_default_elevation">8dp</dimen>
 	<dimen name="drink_main_bannerSize">25dp</dimen>

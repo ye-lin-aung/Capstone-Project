@@ -119,6 +119,11 @@ public class DrinksRemoteDataSource implements DrinksDatasource {
     return drinkList;
   }
 
+  @Override public void saveBookmark(@NonNull DrinkDbModel drinkDbModel) {
+
+
+  }
+
   public DrinkDbModel TransformModels(Result drinks) {
     return new DrinkDbModel(drinks.getColor(), drinks.getDescription(), drinks.getId(),
         drinks.getName(), drinks.getRating(), drinks.getVideos().get(0).getVideo());

@@ -56,6 +56,10 @@ public class MainFragment extends Fragment
     adapter.noAnimationAddList(list);
   }
 
+  @Override public void onBookmark(View v, int position) {
+
+  }
+
   @Override public void setLoadingIndicator(boolean active) {
     if (swipeRefreshLayout.isRefreshing() != active) {
 

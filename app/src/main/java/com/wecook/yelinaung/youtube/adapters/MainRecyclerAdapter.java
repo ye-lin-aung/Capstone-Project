@@ -59,6 +59,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
   }
 
+  public void setBookmark(DrinkDbModel drinkDbModel, int position) {
+    this.list.remove(position);
+    this.list.add(position, drinkDbModel);
+    notifyDataSetChanged();
+  }
+
   public void replaceList(List<DrinkDbModel> list) {
     int initPosition;
 
@@ -92,6 +98,17 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     final DrinkDbModel drinkDbModel = list.get(position);
     if (holder instanceof ItemViewHolder) {
+      if (drinkDbModel.getBookmark() <= 0) {
+        ((ItemViewHolder) holder).getDataBinding().smallLike.setColorFilter(
+            context.getResources().getColor(R.color.before_like));
+        ((ItemViewHolder) holder).getDataBinding().smallLikeText.setText(
+            context.getString(R.string.like));
+      } else {
+        ((ItemViewHolder) holder).getDataBinding().smallLike.setColorFilter(
+            context.getResources().getColor(R.color.colorPrimary));
+        ((ItemViewHolder) holder).getDataBinding().smallLikeText.setText(
+            context.getString(R.string.liked));
+      }
       ((ItemViewHolder) holder).getDataBinding().setVariable(BR.drink, drinkDbModel);
       ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.GONE);
       ((ItemViewHolder) holder).getDataBinding()
@@ -109,6 +126,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 @Override public void onAnimationEnd(Animation animation) {
                   ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.GONE);
+                  itemEvent.onItemClick(view, position);
                 }
 
                 @Override public void onAnimationRepeat(Animation animation) {
@@ -119,6 +137,28 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
               return true;
             }
           });
+      ((ItemViewHolder) holder).getDataBinding().smallLikeContainer.setOnClickListener((view) -> {
+        ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.VISIBLE);
+        Vibrator vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.like);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+          @Override public void onAnimationStart(Animation animation) {
+            view.setHapticFeedbackEnabled(true);
+            view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+          }
+
+          @Override public void onAnimationEnd(Animation animation) {
+            ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.GONE);
+
+            itemEvent.onItemClick(view, position);
+          }
+
+          @Override public void onAnimationRepeat(Animation animation) {
+
+          }
+        });
+        ((ItemViewHolder) holder).getDataBinding().like.startAnimation(animation);
+      });
       ((ItemViewHolder) holder).getDataBinding().executePendingBindings();
     } else {
       if (InternetUtil.isOnline(context)) {
@@ -173,13 +213,18 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       dataBinding = DataBindingUtil.bind(itemView);
       itemView.setOnLongClickListener(this);
       itemView.setOnClickListener(this);
+      dataBinding.smallLikeContainer.setOnClickListener(this);
     }
 
     @Override public void onClick(View view) {
-      if (itemEvent != null) {
-        itemEvent.onItemClick(view, getAdapterPosition());
+      if (view.getId() != R.id.small_like_container) {
+        if (itemEvent != null) {
+          itemEvent.onItemClick(view, getAdapterPosition());
+        } else {
+          throw new NullPointerException("Please implement item click");
+        }
       } else {
-        throw new NullPointerException("Please implement item click");
+        itemEvent.onBookmark(view, getAdapterPosition());
       }
     }
 
@@ -197,6 +242,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     void onItemClick(View v, int position);
 
     void onLongPressed(View v, int position);
+
+    void onBookmark(View v, int position);
   }
 }
 

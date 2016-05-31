@@ -31,6 +31,29 @@ public class DrinkLocalDataSource implements DrinksDatasource {
     this.context = context;
   }
 
+  @Override public void saveBookmark(@NonNull DrinkDbModel drinkDbModel) {
+    checkNotNull(drinkDbModel);
+    ContentValues contentValues = new ContentValues();
+    if (drinkDbModel != null) {
+      contentValues.put(DrinksContract.DrinksEntry.ID, drinkDbModel.getId());
+      contentValues.put(DrinksContract.DrinksEntry.COLOR, drinkDbModel.getColor());
+      contentValues.put(DrinksContract.DrinksEntry.NAME, drinkDbModel.getName());
+      contentValues.put(DrinksContract.DrinksEntry.DESCRIPTION, drinkDbModel.getDescription());
+      contentValues.put(DrinksContract.DrinksEntry.VIDEO, drinkDbModel.getVideo());
+      contentValues.put(DrinksContract.DrinksEntry.RATING, drinkDbModel.getRating());
+      contentValues.put(DrinksEntry.BOOKMARK, drinkDbModel.getBookmark());
+      context.getContentResolver()
+          .update(DrinksEntry.DRINKS_URI, contentValues,
+              DrinksEntry.ID + " = '" + drinkDbModel.getId() + "'", null);
+    }
+    //} else {
+    //context.getContentResolver()
+    //    .insert(DrinksEntry.DRINKS_URI, contentValues, DrinksEntry.ID + "=" + drinkDbModel.getId(),
+    //        null);
+    // }
+
+  }
+
   public static DrinkLocalDataSource getInstance(@NonNull Context context) {
     if (INSTANCE == null) {
       INSTANCE = new DrinkLocalDataSource(context);
@@ -96,8 +119,6 @@ public class DrinkLocalDataSource implements DrinksDatasource {
     }
     return drinks;
   }
-
-
 
   @Override public void refreshDrinks() {
 

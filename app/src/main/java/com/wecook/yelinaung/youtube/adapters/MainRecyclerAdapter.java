@@ -51,7 +51,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   public void noAnimationAddList(List<DrinkDbModel> list) {
     if (this.list.size() <= 0) {
       this.list = list;
-
       notifyItemRangeInserted(this.list.size(), list.size());
     } else {
       this.list = list;

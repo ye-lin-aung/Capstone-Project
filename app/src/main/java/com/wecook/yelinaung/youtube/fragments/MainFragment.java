@@ -47,6 +47,14 @@ public class MainFragment extends Fragment
   private DrinksRepository repository;
   private MainFragmentBinding mainFragmentBinding;
   private MainRecyclerAdapter adapter;
+  private static MainFragment INSTANCE;
+
+  public static MainFragment getInstance() {
+    if (INSTANCE == null) {
+      INSTANCE = new MainFragment();
+    }
+    return INSTANCE;
+  }
 
   @Override public void showDrinks(List<DrinkDbModel> list) {
     recyclerView.setVisibility(View.VISIBLE);

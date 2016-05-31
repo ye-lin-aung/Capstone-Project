@@ -14,6 +14,7 @@
 	<dimen name="drink_card_imageheigh">130dp</dimen>
 	<dimen name="cloud_imageheigh">90dp</dimen>
 	<dimen name="cloud_imagewidth">150dp</dimen>
+	<dimen name="no_bookmark_dimen">96dp</dimen>
 	<dimen name="cloud_recycler_imageheigh">60dp</dimen>
 	<dimen name="cloud_recycler_imagewidth">100dp</dimen>
 	<dimen name="drink_card_MarginLeft">8dp</dimen>

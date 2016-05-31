@@ -2,6 +2,7 @@ package com.wecook.yelinaung.database;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import com.wecook.yelinaung.database.local.DrinkLocalDataSource;
 import com.wecook.yelinaung.database.remote.DrinksRemoteDataSource;
 import java.util.ArrayList;
@@ -21,7 +22,9 @@ public class DrinksRepository implements DrinksDatasource {
   private DrinksRemoteDataSource mDrinkRemoteDataSource;
   private List<DrinkRepoObserver> drinkOb = new ArrayList<DrinkRepoObserver>();
   Map<String, DrinkDbModel> mCachedTasks = null;
-  private List<BookmarkObserver> bookmarkObservers = new ArrayList<BookmarkObserver>();
+  Map<String, DrinkDbModel> mCachedBookmarks = null;
+  boolean mBookmarksIsDirty;
+  private List<BookmarkObserver> obList = new ArrayList<BookmarkObserver>();
   boolean mCachedIsDirty;
 
   public static DrinksRepository getInstance(DrinkLocalDataSource drinkLocalDataSource,
@@ -67,6 +70,26 @@ public class DrinksRepository implements DrinksDatasource {
     mDrinkRemoteDataSource.deleteAllDrinks();
   }
 
+  @Override public List<DrinkDbModel> getBookmarks() {
+
+    List<DrinkDbModel> drinkDbModels = null;
+    // if (!mBookmarksIsDirty) {
+
+    drinkDbModels = checkNotNull(mDrinkLocalDataSource.getBookmarks());
+    // }
+    //if (drinkDbModels == null || drinkDbModels.isEmpty()) {
+    //  // Grab remote data if cache is dirty or local data not available.
+    //  drinkDbModels = checkNotNull(mDrinkLocalDataSource.getBookmarks());
+    //
+    //  // We copy the data to the device so we don't need to query the network next time
+    //
+    //  saveDrinksInLocalDataSource(drinkDbModels);
+    //}
+    //processLoadedBookmarks(drinkDbModels);
+
+    return drinkDbModels;
+  }
+
   @Override public List<DrinkDbModel> getDrinks() {
 
     List<DrinkDbModel> drinkDbModels = null;
@@ -106,6 +129,21 @@ public class DrinksRepository implements DrinksDatasource {
     mCachedIsDirty = false;
   }
 
+  private void processLoadedBookmarks(List<DrinkDbModel> drinkDbModels) {
+    if (drinkDbModels == null) {
+      mCachedBookmarks = null;
+      mBookmarksIsDirty = false;
+      return;
+    }
+    if (mCachedBookmarks == null) {
+      mCachedBookmarks = new LinkedHashMap<>();
+    }
+    for (DrinkDbModel dk : drinkDbModels) {
+      mCachedBookmarks.put(dk.getId(), dk);
+    }
+    mBookmarksIsDirty = false;
+  }
+
   private void saveDrinksInLocalDataSource(List<DrinkDbModel> list) {
     if (list != null) {
       for (DrinkDbModel drinkDbModel : list) {
@@ -114,7 +152,13 @@ public class DrinksRepository implements DrinksDatasource {
     }
   }
 
+  public List<DrinkDbModel> getCachedBookmark() {
+    Log.d("DATA", mCachedBookmarks + "SS");
+    return mCachedBookmarks == null ? null : new ArrayList<>(mCachedBookmarks.values());
+  }
+
   public List<DrinkDbModel> getCached() {
+
     return mCachedTasks == null ? null : new ArrayList<>(mCachedTasks.values());
   }
 
@@ -162,6 +206,11 @@ public class DrinksRepository implements DrinksDatasource {
     }
     mCachedTasks.put(drinkDbModel.getId(), drinkDbModel);
     notifyObservers();
+    notifyAllBookmarkObservers();
+  }
+
+  public boolean cachedBookmarkAvailable() {
+    return mCachedBookmarks != null && !mBookmarksIsDirty;
   }
 
   public boolean cachedTasksAvailable() {
@@ -173,34 +222,33 @@ public class DrinksRepository implements DrinksDatasource {
     notifyObservers();
   }
 
-  @Override public List<DrinkDbModel> getBookmarks() {
-    return mDrinkLocalDataSource.getBookmarks();
+  public void refreshBookmark() {
+    mBookmarksIsDirty = true;
+    notifyAllBookmarkObservers();
+  }
+
+  public void notifyAllBookmarkObservers() {
+    for (BookmarkObserver bo : obList) {
+      bo.OnBookmarkChannged();
+    }
   }
 
   public void addBookmarkObserver(BookmarkObserver bookmarkObserver) {
-    if (!bookmarkObservers.contains(bookmarkObserver)) {
-      bookmarkObservers.add(bookmarkObserver);
+    if (!obList.contains(bookmarkObserver)) {
+      obList.add(bookmarkObserver);
     }
   }
 
   public void removeBookmarkObserver(BookmarkObserver bookmarkObserver) {
-    if (bookmarkObservers.contains(bookmarkObserver)) {
-      bookmarkObservers.remove(bookmarkObserver);
-    }
-  }
-
-  public void notifyAllBookmarkObservers() {
-    for (BookmarkObserver bookmarkObserver:bookmarkObservers) {
-      bookmarkObserver.OnBookmarkChannged();
+    if (obList.contains(bookmarkObserver)) {
+      obList.remove(bookmarkObserver);
     }
   }
 
   @Override public void deleteDrink(@NonNull String drinkId) {
     mDrinkRemoteDataSource.deleteDrink(checkNotNull(drinkId));
     mDrinkLocalDataSource.deleteDrink(checkNotNull(drinkId));
-
     mCachedTasks.remove(drinkId);
-
     notifyObservers();
   }
 

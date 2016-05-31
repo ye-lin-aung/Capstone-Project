@@ -4,7 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import com.wecook.yelinaung.R;
-import com.wecook.yelinaung.bookmark.BookmarkFragment;
+import com.wecook.yelinaung.bookmark.fragments.BookmarkFragment;
 import com.wecook.yelinaung.databinding.ActivityMainBinding;
 import com.wecook.yelinaung.youtube.adapters.TabPagerAdapter;
 import com.wecook.yelinaung.youtube.fragments.MainFragment;

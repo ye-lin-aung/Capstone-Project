@@ -7,4 +7,5 @@
 	<string name="cant_connect">Cant connect to \n Server</string>
 	<string name="like">like</string>
 	<string name="liked">liked</string>
+	<string name="no_bookmark">No bookmarks found</string>
 </resources>

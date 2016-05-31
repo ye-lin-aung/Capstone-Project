@@ -73,7 +73,7 @@ public class DrinkLocalDataSource implements DrinksDatasource {
   @Override public List<DrinkDbModel> getBookmarks() {
     List<DrinkDbModel> drinks = new ArrayList<DrinkDbModel>();
     Cursor cursor = context.getContentResolver()
-        .query(DrinksEntry.DRINKS_URI, PROJECTIONS, DrinksEntry.BOOKMARK + "= 1", null, "");
+        .query(DrinksEntry.DRINKS_URI, PROJECTIONS, DrinksEntry.BOOKMARK + " == 1", null, "");
     if (cursor != null && cursor.getCount() > 0) {
       while (cursor.moveToNext()) {
         DrinkDbModel drinkDbModel = null;

@@ -1,27 +1,26 @@
-package com.wecook.yelinaung.youtube.fragments;
+package com.wecook.yelinaung.bookmark;
 
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.database.DrinksRepository;
-import com.wecook.yelinaung.database.loaders.DrinksLoader;
+import com.wecook.yelinaung.database.loaders.BookmarkLoader;
 import java.util.List;
 
 /**
- * Created by user on 5/24/16.
+ * Created by user on 5/31/16.
  */
-public class MainPresenter
-    implements MainContract.Presenter, LoaderManager.LoaderCallbacks<List<DrinkDbModel>> {
-
-  private final LoaderManager loaderManager;
+public class BookmarkPresenter
+    implements BookmarkContract.Presenter, LoaderManager.LoaderCallbacks<List<DrinkDbModel>> {
+  private final android.support.v4.app.LoaderManager loaderManager;
   private final DrinksRepository drinksRepository;
-  private final DrinksLoader drinksLoader;
-  private final MainContract.View mainView;
-  private final int DRINKQUERY = 1;
+  private final BookmarkLoader drinksLoader;
+  private final BookmarkContract.View mainView;
+  private final int DRINKQUERY = 2;
 
-  public MainPresenter(LoaderManager loaderManager, DrinksRepository drinksRepository,
-      DrinksLoader drinksLoader, MainContract.View view) {
+  public BookmarkPresenter(android.support.v4.app.LoaderManager loaderManager,
+      DrinksRepository drinksRepository, BookmarkLoader drinksLoader, BookmarkContract.View view) {
     this.loaderManager = loaderManager;
     this.drinksLoader = drinksLoader;
     this.drinksRepository = drinksRepository;
@@ -34,19 +33,13 @@ public class MainPresenter
   }
 
   @Override public void processBookmarks(DrinkDbModel drinkDbModel, int position) {
-    if (drinkDbModel.getBookmark() == 0) {
-      drinkDbModel.setBookmark(1);
-      drinksRepository.saveBookmark(drinkDbModel);
+    drinkDbModel.setBookmark(0);
+    drinksRepository.saveBookmark(drinkDbModel);
 
-    } else {
-      drinkDbModel.setBookmark(0);
-      drinksRepository.saveBookmark(drinkDbModel);
-
-    }
   }
 
   @Override public void onLoadFinished(Loader<List<DrinkDbModel>> loader, List<DrinkDbModel> data) {
-    if (data.size() > 0) {
+    if (data!=null && data.size() > 0) {
       mainView.setLoadingIndicator(false);
       mainView.showDrinks(data);
     } else {
@@ -60,20 +53,11 @@ public class MainPresenter
   }
 
   @Override public void paginateDrinks() {
-    drinksRepository.refreshDrinks();
   }
 
   @Override public void loadDrinks(boolean force) {
-    if (force) {
-      mainView.setLoadingIndicator(true);
-      List<DrinkDbModel> list = drinksRepository.getCached();
-      if (list == null || list.isEmpty()) {
-        drinksRepository.refreshDrinks();
-      } else {
-        mainView.setLoadingIndicator(false);
-        mainView.showDrinks(list);
-      }
-    }
+    mainView.setLoadingIndicator(true);
+    drinksRepository.refreshBookmark();
   }
 
   @Override public void start() {

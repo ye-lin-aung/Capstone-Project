@@ -33,6 +33,18 @@ public class MainPresenter
     return drinksLoader;
   }
 
+  @Override public void processBookmarks(DrinkDbModel drinkDbModel, int position) {
+    if (drinkDbModel.getBookmark() == 0) {
+      drinkDbModel.setBookmark(1);
+      drinksRepository.saveBookmark(drinkDbModel);
+      mainView.setLiked(drinkDbModel, position, true);
+    } else {
+      drinkDbModel.setBookmark(0);
+      drinksRepository.saveBookmark(drinkDbModel);
+      mainView.setLiked(drinkDbModel, position, false);
+    }
+  }
+
   @Override public void onLoadFinished(Loader<List<DrinkDbModel>> loader, List<DrinkDbModel> data) {
     if (data.size() > 0) {
       mainView.setLoadingIndicator(false);

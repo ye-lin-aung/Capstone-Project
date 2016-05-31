@@ -23,10 +23,14 @@ public interface MainContract {
     void showDrinks(List<DrinkDbModel> list);
 
     void showError();
+
+    void setLiked(DrinkDbModel drinkDbModel, int position, boolean like);
   }
 
   interface Presenter extends BasePresenter {
     @Override void start();
+
+    void processBookmarks(DrinkDbModel drinkDbModel, int position);
 
     void loadDrinks(boolean force);
 

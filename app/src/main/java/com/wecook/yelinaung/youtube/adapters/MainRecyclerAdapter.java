@@ -59,6 +59,10 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
   }
 
+  public DrinkDbModel getItemAtPosition(int position) {
+    return list.get(position);
+  }
+
   public void setBookmark(DrinkDbModel drinkDbModel, int position) {
     this.list.remove(position);
     this.list.add(position, drinkDbModel);
@@ -98,7 +102,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     final DrinkDbModel drinkDbModel = list.get(position);
     if (holder instanceof ItemViewHolder) {
-      if (drinkDbModel.getBookmark() <= 0) {
+      if (drinkDbModel.getBookmark() == 0) {
         ((ItemViewHolder) holder).getDataBinding().smallLike.setColorFilter(
             context.getResources().getColor(R.color.before_like));
         ((ItemViewHolder) holder).getDataBinding().smallLikeText.setText(
@@ -111,9 +115,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       }
       ((ItemViewHolder) holder).getDataBinding().setVariable(BR.drink, drinkDbModel);
       ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.GONE);
-      ((ItemViewHolder) holder).getDataBinding()
-          .getRoot()
-          .setOnLongClickListener(new View.OnLongClickListener() {
+      ((ItemViewHolder) holder).getDataBinding().itemView.setOnLongClickListener(
+          new View.OnLongClickListener() {
             @Override public boolean onLongClick(View view) {
               ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.VISIBLE);
               Vibrator vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -126,7 +129,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 @Override public void onAnimationEnd(Animation animation) {
                   ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.GONE);
-                  itemEvent.onItemClick(view, position);
+                  itemEvent.onBookmark(view, position);
                 }
 
                 @Override public void onAnimationRepeat(Animation animation) {
@@ -149,8 +152,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
           @Override public void onAnimationEnd(Animation animation) {
             ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.GONE);
-
-            itemEvent.onItemClick(view, position);
+            itemEvent.onBookmark(view, position);
           }
 
           @Override public void onAnimationRepeat(Animation animation) {
@@ -211,8 +213,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public ItemViewHolder(View itemView) {
       super(itemView);
       dataBinding = DataBindingUtil.bind(itemView);
-      itemView.setOnLongClickListener(this);
-      itemView.setOnClickListener(this);
+      dataBinding.itemView.setOnLongClickListener(this);
+      dataBinding.itemView.setOnClickListener(this);
       dataBinding.smallLikeContainer.setOnClickListener(this);
     }
 

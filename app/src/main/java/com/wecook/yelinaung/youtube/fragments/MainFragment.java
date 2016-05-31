@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.wecook.yelinaung.Injection;
 import com.wecook.yelinaung.R;
 import com.wecook.yelinaung.database.DrinkDbModel;
@@ -57,7 +56,11 @@ public class MainFragment extends Fragment
   }
 
   @Override public void onBookmark(View v, int position) {
+    mPresenter.processBookmarks(adapter.getItemAtPosition(position), position);
+  }
 
+  @Override public void setLiked(DrinkDbModel drinkDbModel, int position, boolean like) {
+    adapter.setBookmark(drinkDbModel, position);
   }
 
   @Override public void setLoadingIndicator(boolean active) {
@@ -68,7 +71,7 @@ public class MainFragment extends Fragment
   }
 
   @Override public void onItemClick(View v, int position) {
-    Toast.makeText(getContext(), "CLick", position).show();
+
   }
 
   @Override public void onLongPressed(View v, int position) {
@@ -128,7 +131,6 @@ public class MainFragment extends Fragment
     recyclerView.setOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
 
       @Override public void onLoadMore() {
-        //reset(0, true);
         mPresenter.paginateDrinks();
       }
     });

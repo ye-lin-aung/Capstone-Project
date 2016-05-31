@@ -15,7 +15,6 @@ public class DrinkDbModel {
   private String video;
   private int bookmark;
 
-
   @Nullable private String description;
 
   public int getBookmark() {
@@ -28,6 +27,10 @@ public class DrinkDbModel {
 
   @Nullable public String getDescription() {
     return description;
+  }
+
+  public void setBookmark(int bookmark) {
+    this.bookmark = bookmark;
   }
 
   public String getId() {

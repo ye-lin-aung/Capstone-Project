@@ -24,7 +24,7 @@ public interface MainContract {
 
     void showError();
 
-    void setLiked(DrinkDbModel drinkDbModel, int position, boolean like);
+
   }
 
   interface Presenter extends BasePresenter {

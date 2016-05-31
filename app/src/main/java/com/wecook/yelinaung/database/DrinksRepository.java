@@ -21,6 +21,7 @@ public class DrinksRepository implements DrinksDatasource {
   private DrinksRemoteDataSource mDrinkRemoteDataSource;
   private List<DrinkRepoObserver> drinkOb = new ArrayList<DrinkRepoObserver>();
   Map<String, DrinkDbModel> mCachedTasks = null;
+  private List<BookmarkObserver> bookmarkObservers = new ArrayList<BookmarkObserver>();
   boolean mCachedIsDirty;
 
   public static DrinksRepository getInstance(DrinkLocalDataSource drinkLocalDataSource,
@@ -160,6 +161,7 @@ public class DrinksRepository implements DrinksDatasource {
       mCachedTasks = new LinkedHashMap<>();
     }
     mCachedTasks.put(drinkDbModel.getId(), drinkDbModel);
+    notifyObservers();
   }
 
   public boolean cachedTasksAvailable() {
@@ -169,6 +171,28 @@ public class DrinksRepository implements DrinksDatasource {
   @Override public void refreshDrinks() {
     mCachedIsDirty = true;
     notifyObservers();
+  }
+
+  @Override public List<DrinkDbModel> getBookmarks() {
+    return mDrinkLocalDataSource.getBookmarks();
+  }
+
+  public void addBookmarkObserver(BookmarkObserver bookmarkObserver) {
+    if (!bookmarkObservers.contains(bookmarkObserver)) {
+      bookmarkObservers.add(bookmarkObserver);
+    }
+  }
+
+  public void removeBookmarkObserver(BookmarkObserver bookmarkObserver) {
+    if (bookmarkObservers.contains(bookmarkObserver)) {
+      bookmarkObservers.remove(bookmarkObserver);
+    }
+  }
+
+  public void notifyAllBookmarkObservers() {
+    for (BookmarkObserver bookmarkObserver:bookmarkObservers) {
+      bookmarkObserver.OnBookmarkChannged();
+    }
   }
 
   @Override public void deleteDrink(@NonNull String drinkId) {

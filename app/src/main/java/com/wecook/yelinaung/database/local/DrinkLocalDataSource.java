@@ -70,6 +70,31 @@ public class DrinkLocalDataSource implements DrinksDatasource {
         .delete(DrinksEntry.DRINKS_URI, DrinksEntry.ID + " == " + drinkId, PROJECTIONS);
   }
 
+  @Override public List<DrinkDbModel> getBookmarks() {
+    List<DrinkDbModel> drinks = new ArrayList<DrinkDbModel>();
+    Cursor cursor = context.getContentResolver()
+        .query(DrinksEntry.DRINKS_URI, PROJECTIONS, DrinksEntry.BOOKMARK + "= 1", null, "");
+    if (cursor != null && cursor.getCount() > 0) {
+      while (cursor.moveToNext()) {
+        DrinkDbModel drinkDbModel = null;
+        String id = cursor.getString(cursor.getColumnIndexOrThrow(DrinksEntry.ID));
+        String name = cursor.getString(cursor.getColumnIndexOrThrow(DrinksEntry.NAME));
+        String description =
+            cursor.getString(cursor.getColumnIndexOrThrow(DrinksEntry.DESCRIPTION));
+        String video = cursor.getString(cursor.getColumnIndexOrThrow(DrinksEntry.VIDEO));
+        int rating = cursor.getInt(cursor.getColumnIndexOrThrow(DrinksEntry.RATING));
+        int bookmark = cursor.getInt(cursor.getColumnIndexOrThrow(DrinksEntry.BOOKMARK));
+        String color = cursor.getString(cursor.getColumnIndexOrThrow(DrinksEntry.COLOR));
+        drinkDbModel = new DrinkDbModel(bookmark, color, description, id, name, rating, video);
+        drinks.add(drinkDbModel);
+      }
+      if (cursor != null) {
+        cursor.close();
+      }
+    }
+    return drinks;
+  }
+
   @Nullable @Override public DrinkDbModel getDrink(@NonNull String drinkId) {
 
     Cursor cursor = context.getContentResolver()

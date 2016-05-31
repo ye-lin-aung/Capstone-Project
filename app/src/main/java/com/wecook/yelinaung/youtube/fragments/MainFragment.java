@@ -67,9 +67,7 @@ public class MainFragment extends Fragment
     mPresenter.processBookmarks(adapter.getItemAtPosition(position), position);
   }
 
-  @Override public void setLiked(DrinkDbModel drinkDbModel, int position, boolean like) {
-    adapter.setBookmark(drinkDbModel, position);
-  }
+
 
   @Override public void setLoadingIndicator(boolean active) {
     if (swipeRefreshLayout.isRefreshing() != active) {

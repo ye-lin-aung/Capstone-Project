@@ -119,6 +119,10 @@ public class DrinksRemoteDataSource implements DrinksDatasource {
     return drinkList;
   }
 
+  @Override public List<DrinkDbModel> getBookmarks() {
+    return null;
+  }
+
   @Override public void saveBookmark(@NonNull DrinkDbModel drinkDbModel) {
 
 

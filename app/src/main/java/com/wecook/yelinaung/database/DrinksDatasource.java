@@ -16,6 +16,8 @@ public interface DrinksDatasource {
 
   List<DrinkDbModel> getDrinks();
 
+  List<DrinkDbModel> getBookmarks();
+
   void saveBookmark(@NonNull DrinkDbModel drinkDbModel);
 
   @Nullable DrinkDbModel getDrink(@NonNull String drinkId);

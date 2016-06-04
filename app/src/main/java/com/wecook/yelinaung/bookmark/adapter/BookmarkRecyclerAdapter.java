@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.wecook.yelinaung.BR;
+import com.wecook.yelinaung.MyApp;
 import com.wecook.yelinaung.R;
 import com.wecook.yelinaung.YoutubeThumnail;
 import com.wecook.yelinaung.database.DrinkDbModel;
@@ -52,11 +53,11 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
   public void unBookmarkItems(int position) {
     //  if (position == list.size()) {
-  //  list.remove(position);
-   // notifyDataSetChanged();
+    //  list.remove(position);
+    // notifyDataSetChanged();
     //} else {
-     list.remove(position);
-      notifyItemRemoved(position);
+    list.remove(position);
+    notifyItemRemoved(position);
     //}
   }
 
@@ -162,7 +163,7 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
   @BindingAdapter("app:videoUrl") public static void loadThumbnil(ImageView view, String video) {
     YoutubeThumnail youtubeThumnail = new YoutubeThumnail(video);
-    Picasso.with(context)
+    Picasso.with(MyApp.getContext())
         .load(youtubeThumnail.getFullSize())
         .noPlaceholder()
         .noFade()

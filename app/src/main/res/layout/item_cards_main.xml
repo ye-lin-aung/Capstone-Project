@@ -23,6 +23,7 @@
 				android:layout_height="wrap_content"
 				app:cardPreventCornerOverlap="true"
 				app:cardUseCompatPadding="true"
+
 				>
 
 			<LinearLayout
@@ -43,6 +44,7 @@
 
 
 						<ImageView
+
 								android:id="@+id/thumbnail"
 								android:layout_width="@dimen/item_card_width"
 								android:scaleType="center"
@@ -98,6 +100,7 @@
 							app:srcCompat="@drawable/ic_thumb_up_black_24dp"
 							android:tint="@color/before_like"
 							android:layout_marginRight="@dimen/drink_card_bookmarkMargin"
+							android:layout_marginEnd="@dimen/drink_card_bookmarkMargin"
 							/>
 
 					<TextView

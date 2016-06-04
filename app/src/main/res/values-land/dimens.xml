@@ -5,5 +5,5 @@
 	<dimen name="text_margin">16dp</dimen>
 	<integer name="recycler_item_count">4</integer>
 	<dimen name="item_card_text_minheight">50dp</dimen>
-	<dimen name="item_card_width">155dp</dimen>
+	<dimen name="item_card_width">140dp</dimen>
 </resources>

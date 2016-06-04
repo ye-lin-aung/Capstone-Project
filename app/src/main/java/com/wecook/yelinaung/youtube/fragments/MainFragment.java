@@ -1,6 +1,7 @@
 package com.wecook.yelinaung.youtube.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.database.DrinksRepository;
 import com.wecook.yelinaung.database.loaders.DrinksLoader;
 import com.wecook.yelinaung.databinding.MainFragmentBinding;
+import com.wecook.yelinaung.detail.DetailActivity;
 import com.wecook.yelinaung.events.onBookmarkedEvent;
 import com.wecook.yelinaung.font.CustomFont;
 import com.wecook.yelinaung.youtube.adapters.MainRecyclerAdapter;
@@ -66,11 +68,6 @@ public class MainFragment extends Fragment
     adapter.noAnimationAddList(list);
   }
 
-  @Override public void onBookmark(View v, int position) {
-    bus.post(new onBookmarkedEvent());
-    mPresenter.processBookmarks(adapter.getItemAtPosition(position), position);
-  }
-
   @Override public void setLoadingIndicator(boolean active) {
     if (swipeRefreshLayout.isRefreshing() != active) {
 
@@ -78,8 +75,16 @@ public class MainFragment extends Fragment
     }
   }
 
-  @Override public void onItemClick(View v, int position) {
+  @Override public void onBookmark(View v, int position) {
+    bus.post(new onBookmarkedEvent());
+    mPresenter.processBookmarks(adapter.getItemAtPosition(position), position);
+  }
 
+  @Override public void onItemClick(View v, int position) {
+    Intent intent = new Intent(getContext(), DetailActivity.class);
+
+
+    startActivity(intent);
   }
 
   @Override public void onLongPressed(View v, int position) {
@@ -111,17 +116,17 @@ public class MainFragment extends Fragment
     mPresenter.loadDrinks(true);
   }
 
+  @Override public void showNoDrinksView() {
+    recyclerView.setVisibility(View.GONE);
+    linearLayout.setVisibility(View.VISIBLE);
+    title.setVisibility(View.VISIBLE);
+  }
+
   public void prepareSwipe(View rootView) {
     swipeRefreshLayout = mainFragmentBinding.mainSwipe;
     swipeRefreshLayout.setOnRefreshListener(this);
     swipeRefreshLayout.setColorSchemeResources(R.color.blue_light, R.color.color_red,
         R.color.colorAccent);
-  }
-
-  @Override public void showNoDrinksView() {
-    recyclerView.setVisibility(View.GONE);
-    linearLayout.setVisibility(View.VISIBLE);
-    title.setVisibility(View.VISIBLE);
   }
 
   public void prepareRecycler(View rootView) {

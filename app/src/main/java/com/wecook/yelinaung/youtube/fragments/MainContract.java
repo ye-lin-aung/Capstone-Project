@@ -23,8 +23,6 @@ public interface MainContract {
     void showDrinks(List<DrinkDbModel> list);
 
     void showError();
-
-
   }
 
   interface Presenter extends BasePresenter {

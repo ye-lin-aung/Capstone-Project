@@ -49,7 +49,7 @@
 								android:background="@color/secondaryColor"
 								android:src="@drawable/cocktail"
 								android:layout_height="@dimen/drink_card_imageheigh"
-								app:videoUrl="@{drink.video}"/>
+								app:imageUrl="@{drink.video}"/>
 
 						<TextView
 								android:textSize="@dimen/drink_card_textSize"

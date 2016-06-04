@@ -13,8 +13,10 @@ public class MainActivity extends AppCompatActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     ActivityMainBinding activityMainBinding =
         DataBindingUtil.setContentView(this, R.layout.activity_main);
+    initTransitions();
     TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
     MainFragment mainFragment = MainFragment.getInstance();
     BookmarkFragment bookmarkFragment = new BookmarkFragment();
@@ -22,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
     tabPagerAdapter.addTab("Bookmarks", bookmarkFragment);
     activityMainBinding.viewPager.setAdapter(tabPagerAdapter);
     activityMainBinding.slidingTabs.setupWithViewPager(activityMainBinding.viewPager);
+  }
+
+  private void initTransitions() {
+    getWindow().setExitTransition(null);
+    getWindow().setReenterTransition(null);
   }
 }
 

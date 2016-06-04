@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.wecook.yelinaung.BR;
+import com.wecook.yelinaung.MyApp;
 import com.wecook.yelinaung.R;
 import com.wecook.yelinaung.YoutubeThumnail;
 import com.wecook.yelinaung.database.DrinkDbModel;
@@ -184,7 +185,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   @BindingAdapter("app:imageUrl") public static void loadThumbnil(ImageView view, String video) {
     YoutubeThumnail youtubeThumnail = new YoutubeThumnail(video);
-    Picasso.with(context)
+    Picasso.with(MyApp.getContext())
         .load(youtubeThumnail.getFullSize())
         .noPlaceholder()
         .noFade()

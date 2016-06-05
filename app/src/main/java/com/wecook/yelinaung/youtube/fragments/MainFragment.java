@@ -6,7 +6,10 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 import com.squareup.otto.Bus;
 import com.wecook.yelinaung.Injection;
 import com.wecook.yelinaung.R;
+import com.wecook.yelinaung.YoutubeThumnail;
 import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.database.DrinksRepository;
 import com.wecook.yelinaung.database.loaders.DrinksLoader;
@@ -81,10 +85,22 @@ public class MainFragment extends Fragment
   }
 
   @Override public void onItemClick(View v, int position) {
+
+
+    //final Intent intent = new Intent(getActivity(), DetailActivity.class);
+   // ActivityTransitionLauncher.with(getActivity()).from(v.findViewById(R.id.thumbnail)).launch(intent);
+
     Intent intent = new Intent(getContext(), DetailActivity.class);
+    YoutubeThumnail youtubeThumnail =
+        new YoutubeThumnail(adapter.getItemAtPosition(position).getVideo());
+    String imageUrl = youtubeThumnail.getFullSize();
+    intent.putExtra(DetailActivity.EXTRA, imageUrl);
 
+    ActivityOptionsCompat activityOptions =
+        ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+            new Pair<View, String>(v.findViewById(R.id.thumbnail), "positions"));
 
-    startActivity(intent);
+    ActivityCompat.startActivity(getActivity(), intent, activityOptions.toBundle());
   }
 
   @Override public void onLongPressed(View v, int position) {
@@ -109,6 +125,7 @@ public class MainFragment extends Fragment
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setRetainInstance(true);
     adapter = new MainRecyclerAdapter(new ArrayList<DrinkDbModel>(0));
   }
 

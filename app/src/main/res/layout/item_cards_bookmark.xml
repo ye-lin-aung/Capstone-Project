@@ -44,6 +44,7 @@
 
 						<ImageView
 								android:id="@+id/thumbnail"
+								android:transitionName="position"
 								android:layout_width="@dimen/item_card_width"
 								android:scaleType="center"
 								android:background="@color/secondaryColor"
@@ -98,6 +99,7 @@
 							app:srcCompat="@drawable/ic_thumb_up_black_24dp"
 							android:tint="@color/before_like"
 							android:layout_marginRight="@dimen/drink_card_bookmarkMargin"
+							android:layout_marginLeft="@dimen/drink_card_bookmarkMargin"
 							/>
 
 					<TextView

@@ -13,7 +13,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.wecook.yelinaung.BR;
 import com.wecook.yelinaung.MyApp;
 import com.wecook.yelinaung.R;
@@ -163,11 +165,12 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
   @BindingAdapter("app:videoUrl") public static void loadThumbnil(ImageView view, String video) {
     YoutubeThumnail youtubeThumnail = new YoutubeThumnail(video);
-    Picasso.with(MyApp.getContext())
+    Glide.with(MyApp.getContext())
         .load(youtubeThumnail.getFullSize())
-        .noPlaceholder()
-        .noFade()
-        .fit()
+        .crossFade()
+        .fitCenter()
+        .placeholder(R.drawable.cocktail)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }
 

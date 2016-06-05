@@ -90,6 +90,10 @@ public class DrinksRepository implements DrinksDatasource {
     return drinkDbModels;
   }
 
+  public DrinkDbModel getCachedDrink(String mDrinkId) {
+    return mCachedTasks.get(mDrinkId);
+  }
+
   @Override public List<DrinkDbModel> getDrinks() {
 
     List<DrinkDbModel> drinkDbModels = null;

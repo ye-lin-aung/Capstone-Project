@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Vibrator;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -13,7 +14,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.wecook.yelinaung.BR;
 import com.wecook.yelinaung.MyApp;
 import com.wecook.yelinaung.R;
@@ -140,6 +142,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
               return true;
             }
           });
+      ViewCompat.setTransitionName(((ItemViewHolder) holder).getDataBinding().thumbnail,
+          getItemAtPosition(position).getName() + "_image");
       ((ItemViewHolder) holder).getDataBinding().smallLikeContainer.setOnClickListener((view) -> {
         ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.VISIBLE);
         Vibrator vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -185,11 +189,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
   @BindingAdapter("app:imageUrl") public static void loadThumbnil(ImageView view, String video) {
     YoutubeThumnail youtubeThumnail = new YoutubeThumnail(video);
-    Picasso.with(MyApp.getContext())
+    Glide.with(MyApp.getContext())
         .load(youtubeThumnail.getFullSize())
-        .noPlaceholder()
-        .noFade()
-        .fit()
+        .crossFade()
+        .fitCenter()
+        .placeholder(R.drawable.cocktail)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }
 

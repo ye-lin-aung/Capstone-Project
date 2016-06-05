@@ -13,22 +13,16 @@ public class MainActivity extends AppCompatActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
+    overridePendingTransition(0, 0);
     ActivityMainBinding activityMainBinding =
         DataBindingUtil.setContentView(this, R.layout.activity_main);
-    initTransitions();
     TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
-    MainFragment mainFragment = MainFragment.getInstance();
+    MainFragment mainFragment =new MainFragment();
     BookmarkFragment bookmarkFragment = new BookmarkFragment();
     tabPagerAdapter.addTab("Drinks", mainFragment);
     tabPagerAdapter.addTab("Bookmarks", bookmarkFragment);
     activityMainBinding.viewPager.setAdapter(tabPagerAdapter);
     activityMainBinding.slidingTabs.setupWithViewPager(activityMainBinding.viewPager);
-  }
-
-  private void initTransitions() {
-    getWindow().setExitTransition(null);
-    getWindow().setReenterTransition(null);
   }
 }
 

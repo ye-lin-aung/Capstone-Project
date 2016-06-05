@@ -21,11 +21,11 @@
             <!--</targets>-->
         <!--</transition>-->
     <!--</transitionSet>-->
-    <transition
-        class="com.wecook.yelinaung.transition.Scale"
-        android:startDelay="500">
-        <targets>
-            <target android:targetId="@id/fab" />
-        </targets>
-    </transition>
+    <!--<transition-->
+        <!--class="com.wecook.yelinaung.transition.Scale"-->
+        <!--android:startDelay="500">-->
+        <!--<targets>-->
+            <!--<target android:targetId="@id/fab" />-->
+        <!--</targets>-->
+    <!--</transition>-->
 </transitionSet>

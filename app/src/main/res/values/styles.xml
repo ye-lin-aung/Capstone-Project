@@ -4,11 +4,43 @@
 	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<!-- Customize your theme here. -->
 		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:statusBarColor">@color/colorPrimaryDark</item>
+
 		<item name="android:windowBackground">@android:color/transparent</item>
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
+
+
+
+	<style name="DetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="android:statusBarColor">@color/colorPrimaryDark</item>
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+	</style>
+
+
+	<style name="Widget.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+		<item name="android:background">@color/colorPrimary</item>
+	</style>
+
+	<style name="Widget.ActionBar.Transparent">
+		<item name="android:background">@android:color/transparent</item>
+	</style>
+
+
+	<style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+		<item name="tabTextAppearance">@style/MyCustomTabText</item>
+		<item name="tabSelectedTextColor">@color/text_white</item>
+	</style>
+
+	<style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
+		<item name="android:textSize">12sp</item>
+		<item name="android:textColor">@color/text_gray</item>
+	</style>
+
 
 </resources>

@@ -33,7 +33,7 @@ public class DrinkLoader extends AsyncTaskLoader<DrinkDbModel>
   }
 
   @Override protected void onStartLoading() {
-
+    
     // Deliver any previously loaded data immediately if available.
     if (drinksRepository.cachedTasksAvailable()) {
       deliverResult(drinksRepository.getCachedDrink(drinkId));

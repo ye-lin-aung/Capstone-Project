@@ -8,21 +8,46 @@
 
 	<application
 			android:allowBackup="true"
-			android:icon="@mipmap/ic_launcher"
+			android:icon="@drawable/cocktail1"
 			android:label="@string/app_name"
 			android:supportsRtl="true"
 			android:name=".MyApp"
 			android:theme="@style/AppTheme">
+
+		<meta-data
+				android:name="com.google.android.gms.version"
+				android:value="@integer/google_play_services_version" />
+		<receiver android:name=".widget.HomeScreenWidget" >
+
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE"></action>
+			</intent-filter>
+
+			<meta-data
+					android:name="android.appwidget.provider"
+					android:resource="@xml/widget_info"></meta-data>
+
+		</receiver>
+
+		<service android:name=".widget.StackWidgetService"
+				android:permission="android.permission.BIND_REMOTEVIEWS"
+				android:exported="false" />
+
 		<activity android:name=".youtube.MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
+			<meta-data
+					android:name="android.app.default_searchable"
+					android:value=".search.SearchActivity"/>
+
 		</activity>
 		<activity
 				android:name=".detail.DetailActivity"
 				android:parentActivityName=".youtube.MainActivity"
+				android:theme="@style/DetailTheme"
 				android:launchMode="singleTask">
 			<meta-data
 					android:name="android.support.PARENT_ACTIVITY"
@@ -30,10 +55,32 @@
 
 		</activity>
 
+		<activity
+				android:theme="@style/AppTheme"
+				android:name=".search.SearchActivity"
+				android:parentActivityName=".youtube.MainActivity"
+				>
+			<meta-data
+					android:name="android.support.PARENT_ACTIVITY"
+					android:value=".youtube.MainActivity"/>
+			<intent-filter>
+				<action android:name="android.intent.action.SEARCH"/>
+			</intent-filter>
+			<meta-data
+					android:name="android.app.searchable"
+					android:resource="@xml/searchable"/>
+
+		</activity>
+
+
 		<provider
 				android:authorities="com.wecook.yelinaung"
-				android:name=".database.DrinksContentProvider"/>
+				android:name=".database.DrinksContentProvider"
+				android:exported="true"/>
 
+		<provider
+				android:authorities="com.wecook.yelinaung.search"
+				android:name=".database.SearchSuggestProvider"/>
 
 	</application>
 

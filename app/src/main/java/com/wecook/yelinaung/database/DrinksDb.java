@@ -10,11 +10,14 @@ import android.support.annotation.NonNull;
  */
 public class DrinksDb extends SQLiteOpenHelper {
 
-
   private static final String TEXT_TYPE = " TEXT";
   private static final String[] COLUMNS = {
       DrinksContract.DrinksEntry.NAME, DrinksContract.DrinksEntry.VIDEO,
-      DrinksContract.DrinksEntry.DESCRIPTION, DrinksContract.DrinksEntry.COLOR
+      DrinksContract.DrinksEntry.DESCRIPTION, DrinksContract.DrinksEntry.COLOR,
+      DrinksContract.DrinksEntry.ACTIONS, DrinksContract.DrinksEntry.TOOLS,
+      DrinksContract.DrinksEntry.INGREDIANTS, DrinksContract.DrinksEntry.OCCASIONS,
+      DrinksContract.DrinksEntry.SKILLS, DrinksContract.DrinksEntry.TASTES,
+      DrinksContract.DrinksEntry.SERVEIN
   };
 
   private final String INTEGER_TYPE = " INTEGER";
@@ -25,14 +28,11 @@ public class DrinksDb extends SQLiteOpenHelper {
 
   @Override public void onCreate(SQLiteDatabase sqLiteDatabase) {
     sqLiteDatabase.execSQL(BuildDrinks_SQL());
-
   }
 
   @Override public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ DrinksContract.DrinksEntry.TABLE_NAME);
+    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DrinksContract.DrinksEntry.TABLE_NAME);
   }
-
-
 
   @NonNull public final String BuildDrinks_SQL() {
     StringBuilder stringBuilder = new StringBuilder("CREATE TABLE ");
@@ -43,6 +43,15 @@ public class DrinksDb extends SQLiteOpenHelper {
     stringBuilder.append(" NOT NULL PRIMARY KEY AUTOINCREMENT , ");
     stringBuilder.append(DrinksContract.DrinksEntry.ID);
     stringBuilder.append(TEXT_TYPE);
+    stringBuilder.append(",");
+    stringBuilder.append(DrinksContract.DrinksEntry.IS_HOT);
+    stringBuilder.append(INTEGER_TYPE);
+    stringBuilder.append(",");
+    stringBuilder.append(DrinksContract.DrinksEntry.IS_CARBONATED);
+    stringBuilder.append(INTEGER_TYPE);
+    stringBuilder.append(",");
+    stringBuilder.append(DrinksContract.DrinksEntry.ISALCOHOLIC);
+    stringBuilder.append(INTEGER_TYPE);
     stringBuilder.append(",");
     stringBuilder.append(DrinksContract.DrinksEntry.RATING);
     stringBuilder.append(INTEGER_TYPE);

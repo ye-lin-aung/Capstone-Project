@@ -4,6 +4,10 @@
 	<dimen name="activity_vertical_margin">16dp</dimen>
 	<dimen name="text_margin">16dp</dimen>
 	<integer name="recycler_item_count">4</integer>
+	<dimen name="detail_item_card_heigh">100dp</dimen>
 	<dimen name="item_card_text_minheight">50dp</dimen>
+	<dimen name="tab_icon">38dp</dimen>
 	<dimen name="item_card_width">140dp</dimen>
+	<dimen name="detail_land_image_width">350dp</dimen>
+	<dimen name="detail_land_image_heigh">200dp</dimen>
 </resources>

@@ -3,6 +3,8 @@ package com.wecook.yelinaung;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.wecook.yelinaung.component.DaggerDrinksComponent;
 import com.wecook.yelinaung.component.DaggerRetrofitComponent;
 import com.wecook.yelinaung.component.DrinksComponent;
@@ -32,7 +34,6 @@ public class MyApp extends Application {
     customFontFamily.addFont("thin", "Roboto-Light.ttf");
     customFontFamily.addFont("bold", "AvenirNext-DemiBold.ttf");
     customFontFamily.addFont("medium", "AvenirNext-Medium.ttf");
-
   }
 
   public static Context getContext() {
@@ -43,6 +44,7 @@ public class MyApp extends Application {
     context = null;
     super.onTerminate();
   }
+
 
   public DrinksComponent getDrinksComponent() {
     return drinksComponent;

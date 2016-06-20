@@ -1,6 +1,14 @@
 package com.wecook.yelinaung.database;
 
 import com.google.common.base.Objects;
+import com.wecook.yelinaung.models.Action;
+import com.wecook.yelinaung.models.Ingredient;
+import com.wecook.yelinaung.models.Occasion;
+import com.wecook.yelinaung.models.ServedIn;
+import com.wecook.yelinaung.models.Skill;
+import com.wecook.yelinaung.models.Taste;
+import com.wecook.yelinaung.models.Tool;
+import java.util.List;
 import javax.annotation.Nullable;
 
 /**
@@ -14,6 +22,56 @@ public class DrinkDbModel {
   private String color;
   private String video;
   private int bookmark;
+  private boolean isHot;
+  private boolean isAlcohol;
+  private boolean isCarbon;
+  private List<Tool> tools;
+  private List<Ingredient> ingredients;
+  private List<Action> actions;
+  private List<Taste> tastes;
+  private Skill skills;
+  private ServedIn servedIns;
+  private List<Occasion> occasions;
+
+  public ServedIn getServedIns() {
+    return servedIns;
+  }
+
+  public Skill getSkills() {
+    return skills;
+  }
+
+  public List<Taste> getTastes() {
+    return tastes;
+  }
+
+  public List<Tool> getTools() {
+    return tools;
+  }
+
+  public List<Ingredient> getIngredients() {
+    return ingredients;
+  }
+
+  public List<Action> getActions() {
+    return actions;
+  }
+
+  public List<Occasion> getOccasions() {
+    return occasions;
+  }
+
+  public boolean getIsCarbon() {
+    return isCarbon;
+  }
+
+  public boolean getIsAlcohol() {
+    return isAlcohol;
+  }
+
+  public boolean getIsHot() {
+    return isHot;
+  }
 
   @Nullable private String description;
 
@@ -68,13 +126,24 @@ public class DrinkDbModel {
   }
 
   public DrinkDbModel(String color, String description, String id, String name, int rating,
-      String video) {
+      String video, boolean isHot, boolean isAlcohol, boolean isCarbon, List<Tool> tools, List<Ingredient> ingredients, List<Action> actions, List<Taste> tastes,
+      Skill skills, ServedIn servedIns, List<Occasion> occasions) {
     this.color = color;
     this.description = description;
     this.id = id;
     this.name = name;
     this.rating = rating;
     this.video = video;
+    this.isAlcohol = isAlcohol;
+    this.isHot = isHot;
+    this.isCarbon = isCarbon;
+    this.tools = tools;
+    this.ingredients = ingredients;
+    this.actions = actions;
+    this.tastes = tastes;
+    this.occasions = occasions;
+    this.servedIns = servedIns;
+    this.skills = skills;
   }
 
   @Override public boolean equals(Object o) {
@@ -103,7 +172,9 @@ public class DrinkDbModel {
   }
 
   public DrinkDbModel(int bookmark, String color, String description, String id, String name,
-      int rating, String video) {
+      int rating, String video, boolean isHot, boolean isAlcohol, boolean isCarbon,
+      List<Tool> tools, List<Ingredient> ingredients, List<Action> actions, List<Taste> tastes,
+      Skill skills,ServedIn servedIns, List<Occasion> occasions) {
     this.bookmark = bookmark;
     this.color = color;
     this.description = description;
@@ -111,5 +182,15 @@ public class DrinkDbModel {
     this.name = name;
     this.rating = rating;
     this.video = video;
+    this.isAlcohol = isAlcohol;
+    this.isHot = isHot;
+    this.isCarbon = isCarbon;
+    this.tools = tools;
+    this.ingredients = ingredients;
+    this.actions = actions;
+    this.tastes = tastes;
+    this.occasions = occasions;
+    this.servedIns = servedIns;
+    this.skills = skills;
   }
 }

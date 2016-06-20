@@ -44,13 +44,13 @@
 
 						<ImageView
 								android:id="@+id/thumbnail"
-								android:transitionName="position"
 								android:layout_width="@dimen/item_card_width"
 								android:scaleType="center"
-								android:background="@color/secondaryColor"
-								android:src="@drawable/cocktail"
+								app:srcCompat="@drawable/cocktail_svg"
+								android:tint="@color/colorPrimary"
 								android:layout_height="@dimen/drink_card_imageheigh"
-								app:imageUrl="@{drink.video}"/>
+								app:imageUrl="@{drink.id}"
+								android:contentDescription="@string/drink"/>
 
 						<TextView
 								android:textSize="@dimen/drink_card_textSize"
@@ -64,7 +64,8 @@
 								android:layout_gravity="center"
 								android:gravity="center"
 								app:font="@{`thin`}"
-								android:text="@{drink.name}"/>
+								android:text="@{drink.name}"
+								/>
 
 					</LinearLayout>
 
@@ -72,9 +73,9 @@
 							android:visibility="gone"
 							android:id="@+id/like"
 							android:layout_gravity="center"
-							android:layout_width="36dp"
-							android:layout_height="36dp"
-							app:srcCompat="@drawable/ic_thumb_up_black_24dp"
+							android:layout_width="@dimen/like_container"
+							android:layout_height="@dimen/like_container"
+							app:srcCompat="@drawable/ic_favorite_black_24dp"
 							android:tint="@color/like_gray"/>
 				</FrameLayout>
 
@@ -96,10 +97,11 @@
 							android:id="@+id/small_like"
 							android:layout_width="@dimen/bookmark_btn_small"
 							android:layout_height="@dimen/bookmark_btn_small"
-							app:srcCompat="@drawable/ic_thumb_up_black_24dp"
+							app:srcCompat="@drawable/ic_favorite_black_24dp"
 							android:tint="@color/before_like"
 							android:layout_marginRight="@dimen/drink_card_bookmarkMargin"
 							android:layout_marginLeft="@dimen/drink_card_bookmarkMargin"
+
 							/>
 
 					<TextView

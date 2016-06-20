@@ -30,6 +30,7 @@ public class MainPresenter
 
   @Override public Loader onCreateLoader(int id, Bundle args) {
     mainView.setLoadingIndicator(true);
+
     return drinksLoader;
   }
 

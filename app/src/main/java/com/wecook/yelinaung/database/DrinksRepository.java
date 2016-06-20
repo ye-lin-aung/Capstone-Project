@@ -2,7 +2,6 @@ package com.wecook.yelinaung.database;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import com.wecook.yelinaung.database.local.DrinkLocalDataSource;
 import com.wecook.yelinaung.database.remote.DrinksRemoteDataSource;
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ public class DrinksRepository implements DrinksDatasource {
   private List<DrinkRepoObserver> drinkOb = new ArrayList<DrinkRepoObserver>();
   Map<String, DrinkDbModel> mCachedTasks = null;
   Map<String, DrinkDbModel> mCachedBookmarks = null;
+  Map<String, DrinkDbModel> mSearchCached = null;
   boolean mBookmarksIsDirty;
   private List<BookmarkObserver> obList = new ArrayList<BookmarkObserver>();
   boolean mCachedIsDirty;
@@ -157,7 +157,7 @@ public class DrinksRepository implements DrinksDatasource {
   }
 
   public List<DrinkDbModel> getCachedBookmark() {
-    Log.d("DATA", mCachedBookmarks + "SS");
+
     return mCachedBookmarks == null ? null : new ArrayList<>(mCachedBookmarks.values());
   }
 
@@ -247,6 +247,32 @@ public class DrinksRepository implements DrinksDatasource {
     if (obList.contains(bookmarkObserver)) {
       obList.remove(bookmarkObserver);
     }
+  }
+
+  @Override public List<DrinkDbModel> searchDrinks(String query) {
+    List<DrinkDbModel> list = mDrinkRemoteDataSource.searchDrinks(query);
+    if (mSearchCached != null) {
+      mSearchCached.clear();
+    } else {
+      mSearchCached = new LinkedHashMap<>();
+    }
+    if (list != null && !list.isEmpty()) {
+      saveDrinksInLocalDataSource(list);
+      for (DrinkDbModel drinkDbModel : list) {
+        mSearchCached.put(drinkDbModel.getId(), drinkDbModel);
+      }
+    }
+    List<DrinkDbModel> local = mDrinkLocalDataSource.searchDrinks(query);
+    if (local != null && !local.isEmpty()) {
+      for (DrinkDbModel drinkDbModel : local) {
+        mSearchCached.put(drinkDbModel.getId(), drinkDbModel);
+
+        processLoadedDrinks(local);
+      }
+    }
+
+    notifyObservers();
+    return new ArrayList<>(mSearchCached.values());
   }
 
   @Override public void deleteDrink(@NonNull String drinkId) {

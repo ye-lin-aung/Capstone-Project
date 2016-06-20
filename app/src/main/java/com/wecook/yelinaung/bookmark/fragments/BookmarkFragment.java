@@ -1,6 +1,7 @@
 package com.wecook.yelinaung.bookmark.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,8 +30,10 @@ import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.database.DrinksRepository;
 import com.wecook.yelinaung.database.loaders.BookmarkLoader;
 import com.wecook.yelinaung.databinding.FragmentBookmarkBinding;
+import com.wecook.yelinaung.detail.DetailActivity;
 import com.wecook.yelinaung.events.onBookmarkedEvent;
 import com.wecook.yelinaung.font.CustomFont;
+import com.wecook.yelinaung.widget.HomeScreenWidget;
 import java.util.ArrayList;
 import java.util.List;
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
@@ -65,6 +68,9 @@ public class BookmarkFragment extends Fragment
 
   @Subscribe public void onBookmarkChange(onBookmarkedEvent obe) {
     mPresenter.loadDrinks(true);
+    Intent intent_meeting_update = new Intent(getContext(), HomeScreenWidget.class);
+    intent_meeting_update.setAction(HomeScreenWidget.UPDATE);
+    getContext().sendBroadcast(intent_meeting_update);
   }
 
   @Override public void showDrinks(List<DrinkDbModel> list) {
@@ -88,7 +94,9 @@ public class BookmarkFragment extends Fragment
   }
 
   @Override public void onItemClick(View v, int position) {
-
+    Intent intent = new Intent(getContext(), DetailActivity.class);
+    intent.putExtra(DetailActivity.EXTRA, adapter.getItemAtPosition(position).getId());
+    startActivity(intent);
   }
 
   @Override public void onLongPressed(View v, int position) {

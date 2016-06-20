@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+		<ImageButton
+				android:layout_width="@dimen/occasion_half_image"
+				android:layout_height="@dimen/occasion_half_image"
+				app:srcCompat="@drawable/cocktail_svg"
+				android:tint="@color/colorPrimary"/>
+
+		<TextView
+				android:textSize="@dimen/detail_sub_textSize"
+				android:textColor="@color/colorPrimaryDark"
+				android:id="@+id/occation_text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				/>
+	</LinearLayout>
+</layout>

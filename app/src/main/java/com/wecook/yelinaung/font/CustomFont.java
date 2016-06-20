@@ -7,6 +7,7 @@ import java.util.HashMap;
 /**
  * Created by user on 5/24/16.
  */
+
 public class CustomFont {
   static CustomFont INSTANCE;
 

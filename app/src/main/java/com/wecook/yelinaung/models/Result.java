@@ -36,6 +36,7 @@ public class Result {
     @Expose
     private Boolean isHot;
     @SerializedName("tags")
+
     @Expose
     private List<Object> tags = new ArrayList<Object>();
     @SerializedName("servedIn")

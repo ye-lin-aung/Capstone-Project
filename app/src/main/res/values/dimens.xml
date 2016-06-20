@@ -1,13 +1,35 @@
 <resources>
 	<!-- Default screen margins, per the Android Design guidelines. -->
+	<dimen name="app_title_textSize">20sp</dimen>
+	<dimen name="toolbar_iconSize">36dp</dimen>
+	<dimen name="search_progress_padding">3dp</dimen>
 	<dimen name="activity_horizontal_margin">16dp</dimen>
+	<dimen name="icon_text_size">11sp</dimen>
+	<dimen name="detail_sub_textSize">14sp</dimen>
+	<dimen name="icon_size">40dp</dimen>
 	<dimen name="activity_vertical_margin">16dp</dimen>
+	<dimen name="activity_vertical_small_margin">8dp</dimen>
 	<dimen name="text_margin">16dp</dimen>
+	<dimen name="toolbar_margin">16dp</dimen>
 	<integer name="recycler_item_count">2</integer>
 	<dimen name="item_card_text_minheight">50dp</dimen>
 	<dimen name="item_card_width">165dp</dimen>
 	<dimen name="item_card_heigh">220dp</dimen>
+	<dimen name="item_normal_card_heigh">200dp</dimen>
+
+	<dimen name="detail_item_card_width">95dp</dimen>
+	<dimen name="detail_item_card_heigh">100dp</dimen>
+	<dimen name="tab_icon">38dp</dimen>
+
+	<dimen name="detail_inner_horiz_margin">35dp</dimen>
+	<dimen name="like_container">36dp</dimen>
+	<dimen name="detail_like_container">30dp</dimen>
+	<dimen name="detail_body_bottom_margin">88dp</dimen>
+	<dimen name="detail_sub_title_textSize">18sp</dimen>
+
+	<dimen name="occasion_half_image">20dp</dimen>
 	<dimen name="bookmark_btn_small">24dp</dimen>
+	<dimen name="title_text_bottom_margin">8dp</dimen>
 	<dimen name="view_seperator_heigh">1dp</dimen>
 	<dimen name="view_seperator_width">125dp</dimen>
 	<dimen name="drink_card_textSize">15sp</dimen>
@@ -28,7 +50,27 @@
 	<dimen name="drink_main_default_elevation">8dp</dimen>
 	<dimen name="drink_main_bannerSize">25dp</dimen>
 	<dimen name="drink_main_bannerPadding">3dp</dimen>
+	<dimen name="drink_detail_play_padding">8dp</dimen>
 	<dimen name="drink_main_appbarHeigh">118dp</dimen>
 	<dimen name="error_cloud_elevation">8dp</dimen>
+
+
+	<dimen name="card_margin">3dp</dimen>
+	<dimen name="detail_recycler_heigh">170dp</dimen>
+	<dimen name="title_margin">5dp</dimen>
+	<dimen name="recycler_margin">8dp</dimen>
+
+	<dimen name="no_dimen">0dp</dimen>
+	<dimen name="detail_toolbar_heigh">144dp</dimen>
+	<dimen name="trailer_image">250dp</dimen>
+	<dimen name="detail_text">140dp</dimen>
+	<dimen name="trailer_icon_heigh">50dp</dimen>
+	<dimen name="widget_dimen">220dp</dimen>
+
+	<dimen name="image_widget_size">100dp</dimen>
+	<dimen name="widget_text_size">20sp</dimen>
+	<dimen name="detail_recycler_item_width">120dp</dimen>
+	<dimen name="detail_recycler_image_heigh">100dp</dimen>
+	<dimen name="detail_recycler_item_heigh">165dp</dimen>
 
 </resources>

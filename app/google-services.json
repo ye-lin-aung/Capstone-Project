@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "543483986471",
+    "project_id": "drunky-badef"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543483986471:android:08a0cc48b4b76b8d",
+        "android_client_info": {
+          "package_name": "com.wecook.yelinaung"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUM0sMH0TsIa56AHOWjgyzSRCXyaNXCkU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-66837167-3"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

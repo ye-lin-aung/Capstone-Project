@@ -23,16 +23,17 @@
 				android:layout_height="match_parent"
 				android:gravity="center"
 				android:orientation="vertical"
-				android:layout_marginBottom="@dimen/activity_vertical_margin">
+				android:layout_marginBottom="@dimen/activity_vertical_margin"
+				android:contentDescription="@string/no_bookmark">
 
 			<ImageView
-
 					android:id="@+id/error_cloud"
-					app:srcCompat="@drawable/ic_thumb_up_black_24dp"
-					android:tint="@color/before_like"
-					android:textColor="@color/blue_light"
-					android:layout_width="@dimen/no_bookmark_dimen"
-					android:layout_height="@dimen/no_bookmark_dimen">
+					app:srcCompat="@drawable/ic_favorite_black_24dp"
+					android:tint="@color/colorPrimaryDark"
+					android:layout_width="@dimen/cloud_imagewidth"
+					android:layout_height="@dimen/cloud_imageheigh"
+
+					>
 
 			</ImageView>
 
@@ -42,7 +43,8 @@
 					android:gravity="center"
 					android:textColor="@color/colorPrimary"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"/>
+					android:layout_height="wrap_content"
+					/>
 		</LinearLayout>
 	</FrameLayout>
 </layout>

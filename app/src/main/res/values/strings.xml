@@ -1,11 +1,40 @@
 <resources>
-
-	<string name="app_name">WeCook</string>
+	<string name="app_name">Drunky</string>
 	<string name="main_fragment_tag">mainTag</string>
 	<string name="no_data">Please Connect Network \n To Load Data</string>
 	<string name="load_more">Loading...</string>
 	<string name="cant_connect">Cant connect to \n Server</string>
 	<string name="like">like</string>
+	<string name="menu_search">search</string>
 	<string name="liked">liked</string>
+	<string name="no_such_data">Sorry no data found</string>
+	<string name="drinks_tab">Drinks</string>
+	<string name="fav_tab">Favourites</string>
+	<string name="hot_string">Hot</string>
+	<string name="carbonated">Carbonated</string>
+	<string name="alcohol">Alcohol</string>
+	<string name="description">Description</string>
+	<string name="occation">Occasions</string>
+	<string name="taste">Tastes</string>
+	<string name="skill">Difficulty</string>
+	<string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 	<string name="no_bookmark">No bookmarks found</string>
+	<string name="ingrediants">Ingrediants</string>
+	<string name="tools">Tools</string>
+	<string name="banner_home_footer">ca-app-pub-5413430719671934/4831651607</string>
+	<string name="serve_in">ServedIn</string>
+	<string name="banner">BANNER</string>
+	<string name="back">back</string>
+	<string name="search">search</string>
+	<string name="trailer">trailer</string>
+	<string name="drink">drink</string>
+	<string name="drink_name">drink name</string>
+	<string name="rating">rating</string>
+	<string name="color">drink color</string>
+	<string name="hot">hot drink</string>
+	<string name="alcohol_drink">contains alcohol</string>
+	<string name="carbonated_drink">carbonated drink</string>
+	<string name="skill_rating">skill rating</string>
+
+	<string name="image">image</string>
 </resources>

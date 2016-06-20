@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Vibrator;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -13,13 +14,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.wecook.yelinaung.BR;
 import com.wecook.yelinaung.MyApp;
 import com.wecook.yelinaung.R;
-import com.wecook.yelinaung.YoutubeThumnail;
 import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.databinding.ItemCardsBookmarkBinding;
 import com.wecook.yelinaung.databinding.ProgressLayoutBinding;
@@ -80,18 +79,21 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    final DrinkDbModel drinkDbModel = list.get(position);
     if (holder instanceof ItemViewHolder) {
+      final DrinkDbModel drinkDbModel = list.get(position);
       if (drinkDbModel.getBookmark() == 0) {
         ((ItemViewHolder) holder).getDataBinding().smallLike.setColorFilter(
             context.getResources().getColor(R.color.before_like));
         ((ItemViewHolder) holder).getDataBinding().smallLikeText.setText(
             context.getString(R.string.like));
+        ((ItemViewHolder)holder).getDataBinding().like.setColorFilter(ContextCompat.getColor(context,R.color.color_red));
       } else {
         ((ItemViewHolder) holder).getDataBinding().smallLike.setColorFilter(
-            context.getResources().getColor(R.color.colorPrimary));
+            context.getResources().getColor(R.color.color_red));
         ((ItemViewHolder) holder).getDataBinding().smallLikeText.setText(
             context.getString(R.string.liked));
+        ((ItemViewHolder)holder).getDataBinding().like.setColorFilter(
+            ContextCompat.getColor(context,R.color.before_like));
       }
       ((ItemViewHolder) holder).getDataBinding().setVariable(BR.drink, drinkDbModel);
       ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.GONE);
@@ -163,13 +165,13 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     textView.setTypeface(CustomFont.getInstance().getFont(fontName));
   }
 
-  @BindingAdapter("app:videoUrl") public static void loadThumbnil(ImageView view, String video) {
-    YoutubeThumnail youtubeThumnail = new YoutubeThumnail(video);
+  @BindingAdapter("app:videoUrl") public static void loadThumbnil(ImageView view, String name) {
+    String image="http://assets.absolutdrinks.com/drinks/transparent-background-white/soft-shadow/floor-reflection/150x250/"+name+".png";
     Glide.with(MyApp.getContext())
-        .load(youtubeThumnail.getFullSize())
+        .load(image)
         .crossFade()
         .fitCenter()
-        .placeholder(R.drawable.cocktail)
+        .placeholder(R.drawable.cocktail_svg)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }
@@ -198,6 +200,7 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
       dataBinding.itemView.setOnClickListener(this);
       dataBinding.smallLikeContainer.setOnClickListener(this);
     }
+
 
     @Override public void onClick(View view) {
       if (view.getId() != R.id.small_like_container) {

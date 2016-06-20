@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+	<data>
+
+		<variable
+				name="di"
+				type="com.wecook.yelinaung.detail.InnerDataModel"/>
+	</data>
+
+	<android.support.v7.widget.CardView
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="@dimen/detail_recycler_item_width"
+			android:layout_height="@dimen/detail_recycler_item_heigh"
+			android:layout_margin="@dimen/card_margin">
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:gravity="center"
+				>
+
+			<ImageView
+					android:layout_marginTop="@dimen/activity_vertical_small_margin"
+					android:id="@+id/image_item"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/detail_recycler_image_heigh"
+					app:srcCompat="@drawable/cocktail_svg"
+					android:tint="@color/colorPrimary"
+					app:itemUrl='@{di.imageUrl}'
+					/>
+
+			<TextView
+					android:paddingLeft="@dimen/title_margin"
+					android:paddingStart="@dimen/title_margin"
+					android:paddingRight="@dimen/title_margin"
+					android:paddingEnd="@dimen/title_margin"
+					android:text='@{di.title}'
+					android:id="@+id/text_item"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_gravity="center"
+					android:gravity="center"
+					app:font='@{`bold`}'/>
+		</LinearLayout>
+
+
+	</android.support.v7.widget.CardView>
+</layout>

@@ -14,6 +14,9 @@ public interface DrinksDatasource {
     void noDrinkAvailable();
   }
 
+  List<DrinkDbModel> searchDrinks(String query);
+
+
   List<DrinkDbModel> getDrinks();
 
   List<DrinkDbModel> getBookmarks();

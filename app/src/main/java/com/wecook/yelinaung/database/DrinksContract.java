@@ -23,6 +23,21 @@ public class DrinksContract {
     public static final String BOOKMARK = "bookmark";
     public static final String DESCRIPTION = "description";
     public static final String PATH = "drinks";
+
+    //version 1.0.1
+    public static final String IS_HOT = "hot";
+    public static final String ISALCOHOLIC = "alcoholic";
+    public static final String IS_CARBONATED = "carbon";
+
+    //version 1.0.2
+    public static final String TOOLS = "tools";
+    public static final String INGREDIANTS = "ingrediants";
+    public static final String ACTIONS = "actions";
+    public static final String TASTES = "tastes";
+    public static final String SKILLS = "skills";
+    public static final String SERVEIN = "serve_in";
+    public static final String OCCASIONS = "occasions";
+
     public static final Uri DRINKS_URI = BASE_URI.buildUpon().appendPath(PATH).build();
     public static final String ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/drink";
     public static final String DIR_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/drinks";

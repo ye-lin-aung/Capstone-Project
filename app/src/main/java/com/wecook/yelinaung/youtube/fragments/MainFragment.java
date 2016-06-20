@@ -6,10 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,13 +14,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.squareup.otto.Bus;
 import com.wecook.yelinaung.Injection;
 import com.wecook.yelinaung.R;
-import com.wecook.yelinaung.YoutubeThumnail;
 import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.database.DrinksRepository;
 import com.wecook.yelinaung.database.loaders.DrinksLoader;
@@ -35,8 +30,6 @@ import com.wecook.yelinaung.youtube.adapters.MainRecyclerAdapter;
 import com.wecook.yelinaung.youtube.scroll.EndlessRecyclerViewScrollListener;
 import java.util.ArrayList;
 import java.util.List;
-import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -85,22 +78,9 @@ public class MainFragment extends Fragment
   }
 
   @Override public void onItemClick(View v, int position) {
-
-
-    //final Intent intent = new Intent(getActivity(), DetailActivity.class);
-   // ActivityTransitionLauncher.with(getActivity()).from(v.findViewById(R.id.thumbnail)).launch(intent);
-
     Intent intent = new Intent(getContext(), DetailActivity.class);
-    YoutubeThumnail youtubeThumnail =
-        new YoutubeThumnail(adapter.getItemAtPosition(position).getVideo());
-    String imageUrl = youtubeThumnail.getFullSize();
-    intent.putExtra(DetailActivity.EXTRA, imageUrl);
-
-    ActivityOptionsCompat activityOptions =
-        ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-            new Pair<View, String>(v.findViewById(R.id.thumbnail), "positions"));
-
-    ActivityCompat.startActivity(getActivity(), intent, activityOptions.toBundle());
+    intent.putExtra(DetailActivity.EXTRA, adapter.getItemAtPosition(position).getId());
+    startActivity(intent);
   }
 
   @Override public void onLongPressed(View v, int position) {
@@ -150,10 +130,10 @@ public class MainFragment extends Fragment
     recyclerView = mainFragmentBinding.recycler;
 
     recyclerView.setItemAnimator(new FadeInUpAnimator());
-    recyclerView.getItemAnimator().setAddDuration(1000);
-    recyclerView.getItemAnimator().setRemoveDuration(1000);
-    recyclerView.getItemAnimator().setMoveDuration(1000);
-    recyclerView.getItemAnimator().setChangeDuration(1000);
+    recyclerView.getItemAnimator().setAddDuration(300);
+    recyclerView.getItemAnimator().setRemoveDuration(300);
+    recyclerView.getItemAnimator().setMoveDuration(300);
+    recyclerView.getItemAnimator().setChangeDuration(300);
 
     int columCount = getContext().getResources().getInteger(R.integer.recycler_item_count);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), columCount);
@@ -165,10 +145,6 @@ public class MainFragment extends Fragment
       }
     });
     adapter.setItemEvent(this);
-    AnimationAdapter adapter2 = new SlideInBottomAnimationAdapter(adapter);
-    adapter2.setFirstOnly(true);
-    adapter2.setDuration(500);
-    adapter2.setInterpolator(new OvershootInterpolator(0.5f));
     recyclerView.setHasFixedSize(true);
     recyclerView.setAdapter(adapter);
   }
@@ -183,7 +159,6 @@ public class MainFragment extends Fragment
     mainFragmentBinding = DataBindingUtil.bind(rootView);
     linearLayout = mainFragmentBinding.errorContainer;
     title = mainFragmentBinding.title;
-
     ViewCompat.setElevation(mainFragmentBinding.errorCloud,
         getResources().getDimension(R.dimen.error_cloud_elevation));
     title.setTypeface(CustomFont.getInstance().getFont("medium"));

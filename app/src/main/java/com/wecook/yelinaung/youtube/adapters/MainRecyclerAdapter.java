@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Vibrator;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.HapticFeedbackConstants;
@@ -13,18 +14,16 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.wecook.yelinaung.BR;
 import com.wecook.yelinaung.MyApp;
 import com.wecook.yelinaung.R;
-import com.wecook.yelinaung.YoutubeThumnail;
 import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.databinding.ItemCardsMainBinding;
 import com.wecook.yelinaung.databinding.ProgressLayoutBinding;
-import com.wecook.yelinaung.font.CustomFont;
 import com.wecook.yelinaung.util.InternetUtil;
+import com.wecook.yelinaung.util.PrefUtil;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +79,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   }
 
   @Override public int getItemViewType(int position) {
-    return position != list.size() - 1 ? VIEW_ITEM : VIEW_PROG;
+    return position != list.size() ? VIEW_ITEM : VIEW_PROG;
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -102,18 +101,22 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    final DrinkDbModel drinkDbModel = list.get(position);
     if (holder instanceof ItemViewHolder) {
+      final DrinkDbModel drinkDbModel = list.get(position);
       if (drinkDbModel.getBookmark() == 0) {
         ((ItemViewHolder) holder).getDataBinding().smallLike.setColorFilter(
             context.getResources().getColor(R.color.before_like));
         ((ItemViewHolder) holder).getDataBinding().smallLikeText.setText(
             context.getString(R.string.like));
+        ((ItemViewHolder) holder).getDataBinding().like.setColorFilter(
+            ContextCompat.getColor(context, R.color.color_red));
       } else {
         ((ItemViewHolder) holder).getDataBinding().smallLike.setColorFilter(
-            context.getResources().getColor(R.color.colorPrimary));
+            context.getResources().getColor(R.color.color_red));
         ((ItemViewHolder) holder).getDataBinding().smallLikeText.setText(
             context.getString(R.string.liked));
+        ((ItemViewHolder) holder).getDataBinding().like.setColorFilter(
+            ContextCompat.getColor(context, R.color.before_like));
       }
       ((ItemViewHolder) holder).getDataBinding().setVariable(BR.drink, drinkDbModel);
       ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.GONE);
@@ -167,39 +170,65 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       });
       ((ItemViewHolder) holder).getDataBinding().executePendingBindings();
     } else {
-      if (InternetUtil.isOnline(context)) {
-        ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setVisibility(
-            View.VISIBLE);
-        ((ProgressViewHolder) holder).progressLayoutBinding.errorCloud.setVisibility(View.GONE);
-        ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setIndeterminate(true);
-        ((ProgressViewHolder) holder).progressLayoutBinding.progressText.setText(
-            context.getResources().getString(R.string.load_more));
+      if (getItemCount() == 0) {
+        ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setVisibility(View.GONE);
+        ((ProgressViewHolder) holder).progressLayoutBinding.errorCloud.setVisibility(
+            View.INVISIBLE);
+        ((ProgressViewHolder) holder).progressLayoutBinding.progressText.setVisibility(
+            View.INVISIBLE);
+      }
+      if (getItemCount() < PrefUtil.getCount(context)) {
+        if (getItemCount() > 0) {
+          if (InternetUtil.isOnline(context)) {
+            ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setVisibility(
+                View.VISIBLE);
+            ((ProgressViewHolder) holder).progressLayoutBinding.errorCloud.setVisibility(View.GONE);
+            ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setIndeterminate(true);
+            ((ProgressViewHolder) holder).progressLayoutBinding.progressText.setText(
+                context.getResources().getString(R.string.load_more));
+          } else {
+
+            ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setVisibility(
+                View.GONE);
+            ((ProgressViewHolder) holder).progressLayoutBinding.errorCloud.setVisibility(
+                View.VISIBLE);
+            ((ProgressViewHolder) holder).progressLayoutBinding.progressText.setText(
+                context.getString(R.string.cant_connect));
+          }
+        } else {
+          ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setVisibility(View.GONE);
+          ((ProgressViewHolder) holder).progressLayoutBinding.errorCloud.setVisibility(
+              View.INVISIBLE);
+          ((ProgressViewHolder) holder).progressLayoutBinding.progressText.setVisibility(
+              View.INVISIBLE);
+        }
       } else {
         ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setVisibility(View.GONE);
-        ((ProgressViewHolder) holder).progressLayoutBinding.errorCloud.setVisibility(View.VISIBLE);
-        ((ProgressViewHolder) holder).progressLayoutBinding.progressText.setText(
-            context.getString(R.string.cant_connect));
+        ((ProgressViewHolder) holder).progressLayoutBinding.errorCloud.setVisibility(
+            View.INVISIBLE);
+        ((ProgressViewHolder) holder).progressLayoutBinding.progressText.setVisibility(
+            View.INVISIBLE);
       }
     }
   }
 
-  @BindingAdapter("app:font") public static void loadFont(TextView textView, String fontName) {
-    textView.setTypeface(CustomFont.getInstance().getFont(fontName));
-  }
+  @BindingAdapter("app:imageUrl") public static void loadThumbnil(ImageView view, String name) {
+    String image =
+        "http://assets.absolutdrinks.com/drinks/transparent-background-white/soft-shadow/150x250/"
+            + name
+            + ".png";
 
-  @BindingAdapter("app:imageUrl") public static void loadThumbnil(ImageView view, String video) {
-    YoutubeThumnail youtubeThumnail = new YoutubeThumnail(video);
     Glide.with(MyApp.getContext())
-        .load(youtubeThumnail.getFullSize())
+        .load(image)
         .crossFade()
         .fitCenter()
-        .placeholder(R.drawable.cocktail)
+        .placeholder(R.drawable.cocktail_svg)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }
 
   @Override public int getItemCount() {
-    return list != null ? list.size() : 0;
+    return list != null ? list.size() + 1 : 0;
   }
 
   public class ProgressViewHolder extends RecyclerView.ViewHolder {

@@ -26,6 +26,7 @@ import com.wecook.yelinaung.databinding.MainFragmentBinding;
 import com.wecook.yelinaung.detail.DetailActivity;
 import com.wecook.yelinaung.events.onBookmarkedEvent;
 import com.wecook.yelinaung.font.CustomFont;
+import com.wecook.yelinaung.util.AnalyticManager;
 import com.wecook.yelinaung.youtube.adapters.MainRecyclerAdapter;
 import com.wecook.yelinaung.youtube.scroll.EndlessRecyclerViewScrollListener;
 import java.util.ArrayList;
@@ -73,11 +74,23 @@ public class MainFragment extends Fragment
   }
 
   @Override public void onBookmark(View v, int position) {
+
+    if (adapter.getItemAtPosition(position).getBookmark() == 0) {
+      AnalyticManager.sendEvent(getString(R.string.category_item_bookmark),
+          getString(R.string.main_screen), adapter.getItemAtPosition(position).getId() + "." + "1");
+    } else {
+      AnalyticManager.sendEvent(getString(R.string.category_item_bookmark),
+          getString(R.string.main_screen), adapter.getItemAtPosition(position).getId() + "." + "0");
+    }
+
     bus.post(new onBookmarkedEvent());
     mPresenter.processBookmarks(adapter.getItemAtPosition(position), position);
   }
 
   @Override public void onItemClick(View v, int position) {
+    AnalyticManager.sendEvent(getString(R.string.category_item_click),
+        getString(R.string.main_screen), adapter.getItemAtPosition(position).getId());
+
     Intent intent = new Intent(getContext(), DetailActivity.class);
     intent.putExtra(DetailActivity.EXTRA, adapter.getItemAtPosition(position).getId());
     startActivity(intent);
@@ -159,6 +172,9 @@ public class MainFragment extends Fragment
     mainFragmentBinding = DataBindingUtil.bind(rootView);
     linearLayout = mainFragmentBinding.errorContainer;
     title = mainFragmentBinding.title;
+
+    AnalyticManager.sendScreenView(getString(R.string.main_screen));
+
     ViewCompat.setElevation(mainFragmentBinding.errorCloud,
         getResources().getDimension(R.dimen.error_cloud_elevation));
     title.setTypeface(CustomFont.getInstance().getFont("medium"));

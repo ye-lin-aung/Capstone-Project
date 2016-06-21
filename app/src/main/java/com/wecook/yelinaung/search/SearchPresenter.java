@@ -1,8 +1,10 @@
 package com.wecook.yelinaung.search;
 
 import android.support.v4.app.FragmentManager;
+import com.wecook.yelinaung.R;
 import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.database.DrinksRepository;
+import com.wecook.yelinaung.util.AnalyticManager;
 import java.util.List;
 
 /**
@@ -43,6 +45,7 @@ public class SearchPresenter implements SearchContract.Presenter, SearchFragment
       drinkDbModel.setBookmark(1);
       view.setBookmark(drinkDbModel, position);
       drinksRepository.saveBookmark(drinkDbModel);
+
     } else {
       drinkDbModel.setBookmark(0);
       view.setBookmark(drinkDbModel, position);

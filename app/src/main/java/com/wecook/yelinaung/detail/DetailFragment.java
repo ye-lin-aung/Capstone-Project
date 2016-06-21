@@ -41,6 +41,7 @@ import com.wecook.yelinaung.font.CustomFont;
 import com.wecook.yelinaung.models.Occasion;
 import com.wecook.yelinaung.models.Skill;
 import com.wecook.yelinaung.models.Taste;
+import com.wecook.yelinaung.util.AnalyticManager;
 import com.wecook.yelinaung.widget.HomeScreenWidget;
 import java.util.List;
 
@@ -76,6 +77,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     id = getArguments().getString(BUNDLE_EXTRA);
     DrinksRepository drinksRepository = Injection.provideDrinkRepo(getContext());
     DrinkLoader drinkLoader = new DrinkLoader(getContext(), id, drinksRepository);
+    AnalyticManager.sendScreenView(getString(R.string.detail_screen));
     detailPresenter = new DetailPresenter(drinkLoader, drinksRepository, getLoaderManager(), this);
     AdRequest adRequest = new AdRequest.Builder().build();
     mAdView = fragmentDetailBinding.adView;
@@ -83,30 +85,26 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     return view;
   }
 
-  @Override
-  public void onPause() {
+  @Override public void onPause() {
     if (mAdView != null) {
       mAdView.pause();
     }
     super.onPause();
   }
 
-  @Override
-  public void onResume() {
+  @Override public void onResume() {
     super.onResume();
     if (mAdView != null) {
       mAdView.resume();
     }
   }
 
-  @Override
-  public void onDestroy() {
+  @Override public void onDestroy() {
     if (mAdView != null) {
       mAdView.destroy();
     }
     super.onDestroy();
   }
-
 
   @Override public void setPresenter(DetailContract.Presenter Presenter) {
     Preconditions.checkNotNull(detailPresenter);
@@ -166,9 +164,17 @@ public class DetailFragment extends Fragment implements DetailContract.View {
       showAnim(v);
     });
     if (like) {
+
+      AnalyticManager.sendEvent(getString(R.string.category_item_bookmark),
+          getString(R.string.detail_screen), id + "." + "1");
+
       fragmentDetailBinding.like.setColorFilter(getResources().getColor(R.color.color_red));
       fragmentDetailBinding.likeBtn.setColorFilter(getResources().getColor(R.color.before_like));
     } else {
+
+      AnalyticManager.sendEvent(getString(R.string.category_item_bookmark),
+          getString(R.string.detail_screen), id + "." + "0");
+
       fragmentDetailBinding.like.setColorFilter(getResources().getColor(R.color.text_white));
       fragmentDetailBinding.likeBtn.setColorFilter(getResources().getColor(R.color.color_red));
     }
@@ -221,6 +227,8 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
     String youtube = youtubeThumnail.getFullSize();
     fragmentDetailBinding.play.setOnClickListener((v) -> {
+      AnalyticManager.sendEvent(getString(R.string.category_trailer),
+          getString(R.string.detail_screen), id);
       Intent intent =
           YouTubeStandalonePlayer.createVideoIntent(getActivity(), BuildConfig.YT_KEY, id, 0, false,
               false);

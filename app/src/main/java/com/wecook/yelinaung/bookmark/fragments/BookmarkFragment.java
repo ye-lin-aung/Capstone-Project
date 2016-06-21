@@ -33,6 +33,7 @@ import com.wecook.yelinaung.databinding.FragmentBookmarkBinding;
 import com.wecook.yelinaung.detail.DetailActivity;
 import com.wecook.yelinaung.events.onBookmarkedEvent;
 import com.wecook.yelinaung.font.CustomFont;
+import com.wecook.yelinaung.util.AnalyticManager;
 import com.wecook.yelinaung.widget.HomeScreenWidget;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,13 @@ public class BookmarkFragment extends Fragment
   }
 
   @Override public void onBookmark(View v, int position) {
+    if (adapter.getItemAtPosition(position).getBookmark() == 0) {
+      AnalyticManager.sendEvent(getString(R.string.category_item_bookmark),
+          getString(R.string.bookmark_screen), adapter.getItemAtPosition(position).getId() + "." + "1");
+    } else {
+      AnalyticManager.sendEvent(getString(R.string.category_item_bookmark),
+          getString(R.string.bookmark_screen), adapter.getItemAtPosition(position).getId() + "." + "0");
+    }
 
     mPresenter.processBookmarks(adapter.getItemAtPosition(position), position);
     adapter.unBookmarkItems(position);
@@ -94,6 +102,8 @@ public class BookmarkFragment extends Fragment
   }
 
   @Override public void onItemClick(View v, int position) {
+    AnalyticManager.sendEvent(getString(R.string.category_item_click),
+        getString(R.string.bookmark_screen), adapter.getItemAtPosition(position).getId());
     Intent intent = new Intent(getContext(), DetailActivity.class);
     intent.putExtra(DetailActivity.EXTRA, adapter.getItemAtPosition(position).getId());
     startActivity(intent);
@@ -174,7 +184,7 @@ public class BookmarkFragment extends Fragment
     fragmentBookmarkBinding = DataBindingUtil.bind(rootView);
     linearLayout = fragmentBookmarkBinding.errorContainer;
     title = fragmentBookmarkBinding.title;
-
+    AnalyticManager.sendScreenView(getString(R.string.bookmark_screen));
     ViewCompat.setElevation(fragmentBookmarkBinding.errorCloud,
         getResources().getDimension(R.dimen.error_cloud_elevation));
     title.setTypeface(CustomFont.getInstance().getFont("medium"));

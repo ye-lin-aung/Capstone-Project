@@ -20,6 +20,7 @@ import com.wecook.yelinaung.databinding.ActivitySearchBinding;
 import com.wecook.yelinaung.detail.DetailActivity;
 import com.wecook.yelinaung.events.onBookmarkedEvent;
 import com.wecook.yelinaung.font.CustomFont;
+import com.wecook.yelinaung.util.AnalyticManager;
 import java.util.ArrayList;
 import java.util.List;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
@@ -46,6 +47,7 @@ public class SearchActivity extends AppCompatActivity
     setSupportActionBar(activitySearchBinding.searchToolbar);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    AnalyticManager.sendScreenView(getString(R.string.search_screen));
     activitySearchBinding.title.setTypeface(CustomFont.getInstance().getFont("medium"));
     if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
       String query = intent.getStringExtra(SearchManager.QUERY);
@@ -84,6 +86,9 @@ public class SearchActivity extends AppCompatActivity
 
   @Override public boolean onQueryTextSubmit(String query) {
     searchPresenter.find(searchView.getQuery().toString());
+    AnalyticManager.sendEvent(getString(R.string.category_search), getString(R.string.search),
+        query);
+
     return true;
   }
 
@@ -142,15 +147,24 @@ public class SearchActivity extends AppCompatActivity
   }
 
   @Override public void onBookmark(View v, int position) {
+
     bus.post(new onBookmarkedEvent());
     searchPresenter.processBookmarks(searchAdapter.getItemAtPosition(position), position);
   }
 
   @Override public void setBookmark(DrinkDbModel dbModel, int position) {
-    searchAdapter.setBookmark(dbModel,position);
+
+    AnalyticManager.sendEvent(getString(R.string.category_item_bookmark),
+        getString(R.string.search_screen),
+        dbModel.getId() + "." + dbModel.getBookmark());
+
+    searchAdapter.setBookmark(dbModel, position);
+
   }
 
   @Override public void onItemClick(View v, int position) {
+    AnalyticManager.sendEvent(getString(R.string.category_item_click), getString(R.string.search),
+        searchAdapter.getItemAtPosition(position).getId());
     Intent intent = new Intent(this, DetailActivity.class);
     intent.putExtra(DetailActivity.EXTRA, searchAdapter.getItemAtPosition(position).getId());
     startActivity(intent);

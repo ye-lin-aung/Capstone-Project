@@ -25,7 +25,8 @@
 			<ImageView
 
 					android:id="@+id/error_cloud"
-					android:background="@drawable/offline_cloud"
+					app:srcCompat="@drawable/ic_cloud_off_black_24dp"
+					android:tint="@android:color/darker_gray"
 					android:textColor="@color/blue_light"
 					android:layout_width="@dimen/cloud_recycler_imagewidth"
 					android:layout_height="@dimen/cloud_recycler_imageheigh">

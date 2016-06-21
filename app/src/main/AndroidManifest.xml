@@ -16,8 +16,8 @@
 
 		<meta-data
 				android:name="com.google.android.gms.version"
-				android:value="@integer/google_play_services_version" />
-		<receiver android:name=".widget.HomeScreenWidget" >
+				android:value="@integer/google_play_services_version"/>
+		<receiver android:name=".widget.HomeScreenWidget">
 
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE"></action>
@@ -29,9 +29,10 @@
 
 		</receiver>
 
-		<service android:name=".widget.StackWidgetService"
+		<service
+				android:name=".widget.StackWidgetService"
 				android:permission="android.permission.BIND_REMOTEVIEWS"
-				android:exported="false" />
+				android:exported="false"/>
 
 		<activity android:name=".youtube.MainActivity">
 			<intent-filter>

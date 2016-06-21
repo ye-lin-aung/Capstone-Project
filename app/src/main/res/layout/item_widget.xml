@@ -8,26 +8,28 @@
 		android:background="@drawable/background_widget">
 
 
-	<TextView
-			android:id="@+id/remote_title"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:textSize="@dimen/widget_text_size"
-			android:textColor="@color/colorPrimary"
-			android:layout_gravity="center"
-			android:gravity="center"
-			android:layout_marginBottom="@dimen/activity_vertical_margin"
 
 
-			/>
+		<TextView
+				android:id="@+id/remote_title"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/widget_text_size"
+				android:textColor="@color/colorPrimary"
+				android:layout_gravity="center"
+				android:gravity="center"
+				android:layout_marginBottom="@dimen/activity_vertical_margin"
 
-	<ImageView
-			android:id="@+id/small_like"
-			android:layout_width="@dimen/image_widget_size"
-			android:layout_height="@dimen/image_widget_size"
-			android:layout_gravity="center"
-			android:layout_margin="@dimen/activity_horizontal_margin"
-			/>
+
+				/>
+
+		<ImageView
+				android:id="@+id/small_like"
+				android:layout_width="@dimen/image_widget_size"
+				android:layout_height="@dimen/image_widget_size"
+				android:layout_gravity="center"
+				android:layout_margin="@dimen/activity_horizontal_margin"
+				/>
 
 
 </LinearLayout>

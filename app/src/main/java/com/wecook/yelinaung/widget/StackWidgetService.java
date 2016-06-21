@@ -12,6 +12,7 @@ import com.wecook.yelinaung.R;
 import com.wecook.yelinaung.database.DrinkDbModel;
 import com.wecook.yelinaung.database.DrinksRepository;
 import com.wecook.yelinaung.detail.DetailActivity;
+import com.wecook.yelinaung.util.AnalyticManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +52,11 @@ class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   public RemoteViews getViewAt(int position) {
+
     final RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.item_widget);
     if (position <= getCount()) {
+
+      AnalyticManager.sendScreenView(mContext.getString(R.string.widget_screen));
       DrinkDbModel buzz = mBuzzes.get(position);
       if (buzz.getId() != null) {
 

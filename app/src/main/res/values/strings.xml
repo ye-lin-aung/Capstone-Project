@@ -2,8 +2,8 @@
 	<string name="app_name">Drunky</string>
 	<string name="main_fragment_tag">mainTag</string>
 	<string name="no_data">Please Connect Network \n To Load Data</string>
-	<string name="load_more">Loading...</string>
-	<string name="cant_connect">Cant connect to \n Server</string>
+	<string name="load_more">Loading &#8230;</string>
+	<string name="cant_connect">Cannot connect to \n Server</string>
 	<string name="like">like</string>
 	<string name="menu_search">search</string>
 	<string name="liked">liked</string>
@@ -35,6 +35,14 @@
 	<string name="alcohol_drink">contains alcohol</string>
 	<string name="carbonated_drink">carbonated drink</string>
 	<string name="skill_rating">skill rating</string>
-
+	<string name="main_screen">Main Screen</string>
+	<string name="bookmark_screen">Bookmark Screen</string>
+	<string name="detail_screen">Detail Screen</string>
+	<string name="search_screen">Search Screen</string>
+	<string name="widget_screen">Widget Screen</string>
+	<string name="category_search">Search Category</string>
+	<string name="category_item_click">Click Category</string>
+	<string name="category_trailer">Trailer Category</string>
+	<string name="category_item_bookmark">Bookmark Category</string>
 	<string name="image">image</string>
 </resources>

@@ -6,7 +6,7 @@
 			android:title="@string/menu_search"
 			android:id="@+id/search"
 			android:visible="true"
-			android:icon="@mipmap/ic_search"
+			android:icon="@mipmap/search"
 			android:orderInCategory="100"
 			app:showAsAction="ifRoom|collapseActionView"
 			/>

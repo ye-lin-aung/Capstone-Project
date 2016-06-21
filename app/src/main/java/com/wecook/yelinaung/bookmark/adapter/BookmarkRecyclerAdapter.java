@@ -3,7 +3,10 @@ package com.wecook.yelinaung.bookmark.adapter;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.HapticFeedbackConstants;
@@ -168,11 +171,17 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
   @BindingAdapter("app:videoUrl") public static void loadThumbnil(ImageView view, String name) {
     String image =
-        "http://assets.absolutdrinks.com/drinks/transparent-background-white/soft-shadow/floor-reflection/150x250/"
+        "http://assets.absolutdrinks.com/drinks/transparent-background-white/soft-shadow/150x250/"
             + name
             + ".png";
+
+    Drawable drawable = VectorDrawableCompat.create(context.getResources(), R.drawable.cocktail_svg,
+        context.getTheme()).mutate();
+    PorterDuff.Mode mMode = PorterDuff.Mode.SRC_ATOP;
+    drawable.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary), mMode);
     Glide.with(MyApp.getContext())
         .load(image)
+        .placeholder(drawable)
         .crossFade()
         .fitCenter()
         .diskCacheStrategy(DiskCacheStrategy.ALL)

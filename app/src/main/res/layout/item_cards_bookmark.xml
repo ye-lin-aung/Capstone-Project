@@ -47,7 +47,7 @@
 								android:layout_width="@dimen/item_card_width"
 								android:scaleType="center"
 								android:layout_height="@dimen/drink_card_imageheigh"
-								app:imageUrl="@{drink.id}"
+								app:videoUrl="@{drink.id}"
 								android:contentDescription="@string/drink"/>
 
 						<TextView

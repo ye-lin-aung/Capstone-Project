@@ -49,7 +49,7 @@
 								android:scaleType="center"
 
 								android:layout_height="@dimen/drink_card_imageheigh"
-								app:searchImg="@{drink.id}"/>
+								app:imageUrl="@{drink.id}"/>
 
 						<TextView
 								android:textSize="@dimen/drink_card_textSize"

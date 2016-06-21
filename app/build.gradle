@@ -3,9 +3,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.google.gms.google-services'
 
-def apiKey = 'f0052aa8b4ae4973963560c42ad4cce2'
-def apiSecret = 'fb28ccfbec32401180c177bda7731689'
-def ytApiKey = 'AIzaSyA13E_eBfWaPNLlxtg0Y9nUpx3cHpIHDLE'
+
 
 android {
   signingConfigs {

@@ -3,9 +3,11 @@ package com.wecook.yelinaung.youtube.adapters;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -145,8 +147,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
               return true;
             }
           });
-      ViewCompat.setTransitionName(((ItemViewHolder) holder).getDataBinding().thumbnail,
-          getItemAtPosition(position).getName() + "_image");
+
       ((ItemViewHolder) holder).getDataBinding().smallLikeContainer.setOnClickListener((view) -> {
         ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.VISIBLE);
         Vibrator vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -170,7 +171,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       });
       ((ItemViewHolder) holder).getDataBinding().executePendingBindings();
     } else {
-      if (getItemCount() == 0) {
+      if (getItemCount() == 1) {
         ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setVisibility(View.GONE);
         ((ProgressViewHolder) holder).progressLayoutBinding.errorCloud.setVisibility(
             View.INVISIBLE);
@@ -178,7 +179,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             View.INVISIBLE);
       }
       if (getItemCount() < PrefUtil.getCount(context)) {
-        if (getItemCount() > 0) {
+        if (getItemCount() > 1) {
           if (InternetUtil.isOnline(context)) {
             ((ProgressViewHolder) holder).progressLayoutBinding.moreProgress.setVisibility(
                 View.VISIBLE);
@@ -218,11 +219,15 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             + name
             + ".png";
 
+    Drawable drawable = VectorDrawableCompat.create(context.getResources(), R.drawable.cocktail_svg,
+        context.getTheme()).mutate();
+    PorterDuff.Mode mMode = PorterDuff.Mode.SRC_ATOP;
+    drawable.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary), mMode);
     Glide.with(MyApp.getContext())
         .load(image)
+        .placeholder(drawable)
         .crossFade()
         .fitCenter()
-        .placeholder(R.drawable.cocktail_svg)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }

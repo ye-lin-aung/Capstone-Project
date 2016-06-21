@@ -10,8 +10,7 @@
 		<ImageButton
 				android:layout_width="@dimen/occasion_half_image"
 				android:layout_height="@dimen/occasion_half_image"
-				app:srcCompat="@drawable/cocktail_svg"
-				android:tint="@color/colorPrimary"/>
+				/>
 
 		<TextView
 				android:textSize="@dimen/detail_sub_textSize"

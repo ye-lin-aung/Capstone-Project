@@ -27,8 +27,6 @@
 					android:id="@+id/image_item"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/detail_recycler_image_heigh"
-					app:srcCompat="@drawable/cocktail_svg"
-					android:tint="@color/colorPrimary"
 					app:itemUrl='@{di.imageUrl}'
 					/>
 

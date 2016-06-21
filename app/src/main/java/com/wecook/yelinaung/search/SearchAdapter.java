@@ -146,7 +146,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         .load(image)
         .crossFade()
         .fitCenter()
-        .placeholder(R.drawable.cocktail_svg)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }

@@ -47,8 +47,6 @@
 								android:id="@+id/thumbnail"
 								android:layout_width="@dimen/item_card_width"
 								android:scaleType="center"
-								app:srcCompat="@drawable/cocktail_svg"
-								android:tint="@color/colorPrimary"
 								android:layout_height="@dimen/drink_card_imageheigh"
 								app:imageUrl="@{drink.id}"/>
 

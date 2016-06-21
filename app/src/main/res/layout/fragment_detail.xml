@@ -86,8 +86,6 @@
 
 						<ImageView
 								android:id="@+id/image_header"
-								app:srcCompat="@drawable/cocktail_svg"
-								android:tint="@color/colorPrimary"
 								android:layout_width="match_parent"
 								android:layout_height="match_parent"
 								android:contentDescription="@string/drink"
@@ -289,13 +287,11 @@
 								>
 
 							<ImageView
-
 									android:id="@+id/carbon"
 									android:layout_width="wrap_content"
 									android:padding="@dimen/search_progress_padding"
 									android:layout_height="@dimen/icon_size"
-									android:src="@drawable/carbon"/>
-
+									app:srcCompat="@drawable/carbon"/>
 
 							<TextView
 									android:id="@+id/carbon_text"

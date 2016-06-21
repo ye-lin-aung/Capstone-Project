@@ -29,7 +29,7 @@
 				<ImageView
 						android:layout_width="@dimen/tab_icon"
 						android:layout_height="@dimen/tab_icon"
-						app:srcCompat="@drawable/cocktail1"/>
+						app:srcCompat="@drawable/icon"/>
 
 				<TextView
 						android:layout_width="wrap_content"

@@ -145,7 +145,7 @@ public class DrinksRemoteDataSource implements DrinksDatasource {
           drinks.getServedIn(), drinks.getOccasions());
     } else {
       return new DrinkDbModel(drinks.getColor(), drinks.getDescriptionPlain(), drinks.getId(),
-          drinks.getName(), drinks.getRating(), drinks.getVideos().get(0).getVideo(),
+          drinks.getName(), drinks.getRating(),"",
           drinks.getIsHot(), drinks.getIsAlcoholic(), drinks.getIsCarbonated(), drinks.getTools(),
           drinks.getIngredients(), drinks.getActions(), drinks.getTastes(), drinks.getSkill(),
           drinks.getServedIn(), drinks.getOccasions());

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,11 +44,24 @@ public class MainActivity extends AppCompatActivity {
 
     activityMainBinding.slidingTabs.setupWithViewPager(activityMainBinding.viewPager);
     activityMainBinding.slidingTabs.getTabAt(0).setIcon(R.drawable.cocktail_svg);
-
-    Drawable drawable = getResources().getDrawable(R.drawable.ic_favorite_black_24dp);
+    Drawable drawable =
+        VectorDrawableCompat.create(getResources(), R.drawable.ic_favorite_black_24dp, getTheme())
+            .mutate();
     PorterDuff.Mode mMode = PorterDuff.Mode.SRC_ATOP;
     drawable.setColorFilter(Color.WHITE, mMode);
     activityMainBinding.slidingTabs.getTabAt(1).setIcon(drawable);
+    //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    //  Drawable drawable = getResources().getDrawable(R.drawable.ic_favorite_black_24dp);
+    //  VectorDrawableCompat vectorDrawable = (VectorDrawable) drawable;
+
+    //} else {
+    //  Drawable drawable = getResources().getDrawable(R.drawable.ic_favorite_black_24dp);
+    //  BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+    //  PorterDuff.Mode mMode = PorterDuff.Mode.SRC_ATOP;
+    //  bitmapDrawable.setColorFilter(Color.WHITE, mMode);
+    //  activityMainBinding.slidingTabs.getTabAt(1).setIcon(bitmapDrawable);
+    //}
+
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {

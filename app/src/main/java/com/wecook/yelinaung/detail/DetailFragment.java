@@ -200,6 +200,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
     Glide.with(MyApp.getContext())
         .load(image)
+        .placeholder(R.drawable.icon)
         .crossFade()
         .fitCenter()
         .diskCacheStrategy(DiskCacheStrategy.ALL)

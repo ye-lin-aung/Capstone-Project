@@ -11,9 +11,9 @@ android {
   signingConfigs {
     sigingConfig {
       keyAlias 'wecook'
-      keyPassword KEY_PASSWORD
+      keyPassword 'il0v3yamon3z1n'
       storeFile file('../wecook.jks')
-      storePassword KEYSTORE_PASSWORD
+      storePassword 'il0v3yamon3z1n'
     }
   }
 
@@ -55,8 +55,8 @@ android {
       shrinkResources true
       minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.sigingConfig
     }
-
     dexOptions {
       incremental true
       javaMaxHeapSize "4g"
@@ -87,37 +87,30 @@ dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   compile project(':YouTubeAndroidPlayerApi')
   testCompile 'junit:junit:4.12'
-
   //Dagger
   apt "com.google.dagger:dagger-compiler:$rootProject.dagger"
   compile "com.google.dagger:dagger:$rootProject.dagger"
   provided "javax.annotation:jsr250-api:$rootProject.javax"
   compile "com.google.guava:guava:$rootProject.guava"
-
   //Support lib
   compile "com.android.support:appcompat-v7:$rootProject.supportLibrary"
   compile "com.android.support:cardview-v7:$rootProject.supportLibrary"
   compile "com.android.support:support-annotations:$rootProject.supportLibrary"
   compile "com.android.support:multidex:$rootProject.multidex"
-
   compile("com.android.support:support-v4:$rootProject.supportLibrary") {
     force = true;
   }
   compile "com.android.support:design:$rootProject.supportLibrary"
   compile "com.android.support:recyclerview-v7:$rootProject.supportLibrary"
-
   //View components
   compile "com.jakewharton:butterknife:$rootProject.butterknife"
   compile "uk.co.chrisjenx:calligraphy:$rootProject.calligraphy"
-
-
   compile "com.google.android.gms:play-services-analytics:${rootProject.analytics}"
   compile "com.google.android.gms:play-services-ads:${rootProject.adMob}"
   //Network components
   compile "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
   compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofit2"
   compile "com.google.code.gson:gson:$rootProject.gson"
-
   compile "me.zhanghai.android.materialprogressbar:library:${rootProject.progressbar}"
   compile "jp.wasabeef:recyclerview-animators:${rootProject.recycler_animators}"
   //Utils
@@ -127,4 +120,5 @@ dependencies {
   compile "com.facebook.stetho:stetho-okhttp3:$rootProject.stetho"
   retrolambdaConfig "net.orfjackal.retrolambda:retrolambda:$rootProject.retrolambda"
   // apt 'com.android.databinding:compiler:1.0-rc0+'
+  compile 'com.google.android.gms:play-services-ads:9.0.0'
 }

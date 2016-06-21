@@ -86,14 +86,15 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
             context.getResources().getColor(R.color.before_like));
         ((ItemViewHolder) holder).getDataBinding().smallLikeText.setText(
             context.getString(R.string.like));
-        ((ItemViewHolder)holder).getDataBinding().like.setColorFilter(ContextCompat.getColor(context,R.color.color_red));
+        ((ItemViewHolder) holder).getDataBinding().like.setColorFilter(
+            ContextCompat.getColor(context, R.color.color_red));
       } else {
         ((ItemViewHolder) holder).getDataBinding().smallLike.setColorFilter(
             context.getResources().getColor(R.color.color_red));
         ((ItemViewHolder) holder).getDataBinding().smallLikeText.setText(
             context.getString(R.string.liked));
-        ((ItemViewHolder)holder).getDataBinding().like.setColorFilter(
-            ContextCompat.getColor(context,R.color.before_like));
+        ((ItemViewHolder) holder).getDataBinding().like.setColorFilter(
+            ContextCompat.getColor(context, R.color.before_like));
       }
       ((ItemViewHolder) holder).getDataBinding().setVariable(BR.drink, drinkDbModel);
       ((ItemViewHolder) holder).getDataBinding().like.setVisibility(View.GONE);
@@ -166,12 +167,14 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
   }
 
   @BindingAdapter("app:videoUrl") public static void loadThumbnil(ImageView view, String name) {
-    String image="http://assets.absolutdrinks.com/drinks/transparent-background-white/soft-shadow/floor-reflection/150x250/"+name+".png";
+    String image =
+        "http://assets.absolutdrinks.com/drinks/transparent-background-white/soft-shadow/floor-reflection/150x250/"
+            + name
+            + ".png";
     Glide.with(MyApp.getContext())
         .load(image)
         .crossFade()
         .fitCenter()
-        .placeholder(R.drawable.cocktail_svg)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view);
   }
@@ -200,7 +203,6 @@ public class BookmarkRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
       dataBinding.itemView.setOnClickListener(this);
       dataBinding.smallLikeContainer.setOnClickListener(this);
     }
-
 
     @Override public void onClick(View view) {
       if (view.getId() != R.id.small_like_container) {

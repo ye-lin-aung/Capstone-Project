@@ -14,12 +14,8 @@ A cocktail mixing app which provides more than 3000 of cocktails with detail ins
 
 ## Sample Image
 
-### Main Screen
-![alt](https://lh3.googleusercontent.com/UOP1xuGaq6B7Tky-EEnnW9KOkjYDB-cg_ZAI3PsxKMryTLJj9JvoUKuRB704ua3rmbU=h310-rw)
-### Detail Screen
-![alt](https://lh3.googleusercontent.com/lNty0bu8rxcDYJa51EuqwwN6-oCYy1gz3T212n_dP_6Mn03xwvAmi4ohLLxa3yCoOA=h310-rw)
-### Widget Screen
-![alt](https://lh3.googleusercontent.com/X41A_fl1xHvZV40E4xF2puBXOieXbUnpSFUT1JlmYbsfW_5e8KK71YlZfe5aowSLrwEa=h310-rw)
+Screens
+![alt](https://lh3.googleusercontent.com/UOP1xuGaq6B7Tky-EEnnW9KOkjYDB-cg_ZAI3PsxKMryTLJj9JvoUKuRB704ua3rmbU=h310-rw)![alt](https://lh3.googleusercontent.com/lNty0bu8rxcDYJa51EuqwwN6-oCYy1gz3T212n_dP_6Mn03xwvAmi4ohLLxa3yCoOA=h310-rw)![alt](https://lh3.googleusercontent.com/X41A_fl1xHvZV40E4xF2puBXOieXbUnpSFUT1JlmYbsfW_5e8KK71YlZfe5aowSLrwEa=h310-rw)
 
 ## Notes
 
